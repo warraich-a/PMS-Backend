@@ -1,0 +1,13 @@
+stages:
+  - build
+  - test
+build:
+  stage: build
+  script:
+    - ./API_Gradle_Libraries/gradlew build
+test:
+  stage: test
+  script:
+    - ./API_Gradle_Libraries/gradlew test
+  dependencies:
+    - build
