@@ -41,7 +41,7 @@ public class PatientResources {
         String result = "It works";
         return Response.ok().build();
     }*/
-    @POS //POST at http://localhost:XXXX/students/
+    @POST //POST at http://localhost:XXXX/students/
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createStudent(Patients p) {
         if (!fakeData.addPatient(p)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
