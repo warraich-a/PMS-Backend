@@ -4,10 +4,10 @@ stages:
 build:
   stage: build
   script:
-    - ./gradlew build
+    - ./Project Individual/gradlew build
 test:
   stage: test
   script:
-    - ./gradlew test
+    - ./Project Individual/gradlew test
   dependencies:
     - build
