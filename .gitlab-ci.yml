@@ -1,0 +1,15 @@
+stages:
+  - build
+  - test
+build:
+  stage: build
+  script:
+    - cd Project_Individual/
+    - ./gradlew build
+test:
+  stage: test
+  script:
+    - cd Project_Individual/
+    - ./gradlew test
+  dependencies:
+    - build
