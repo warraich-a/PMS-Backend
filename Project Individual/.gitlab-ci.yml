@@ -4,10 +4,10 @@ stages:
 build:
   stage: build
   script:
-    - ./API_Gradle_Libraries/gradlew build
+    - ./gradlew build
 test:
   stage: test
   script:
-    - ./API_Gradle_Libraries/gradlew test
+    - ./gradlew test
   dependencies:
     - build
