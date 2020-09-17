@@ -1,15 +1,15 @@
+stages:
+  - build
+  - test
 build:
   stage: build
   script:
     - cd Project_Individual/
     - ./gradlew build
-stages: 
-  - build
-  - test
-test: 
-  dependencies: "-build -testTask.ignoreFailures = true"
- test:
+test:
   stage: test
   script:
     - cd Project_Individual/
     - ./gradlew test
+  dependencies:
+    - build
