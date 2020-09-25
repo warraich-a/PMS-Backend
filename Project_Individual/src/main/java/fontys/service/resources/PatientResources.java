@@ -20,7 +20,6 @@ public class PatientResources {
     @Produces(MediaType.APPLICATION_JSON)
     public Response sayHello(){
         List<Patients> patients = fakeData.getPatientsList();
-
         GenericEntity<List<Patients>> entity = new GenericEntity<>(patients) {  };
         return Response.ok(entity).build();
     }
