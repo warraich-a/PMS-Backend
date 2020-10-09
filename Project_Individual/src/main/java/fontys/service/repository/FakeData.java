@@ -1,16 +1,18 @@
 package fontys.service.repository;
 
-import fontys.service.model.Doctors;
-import fontys.service.model.Patients;
+import fontys.service.model.Medicine;
+import fontys.service.model.Patient;
+import fontys.service.model.Pharmacist;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FakeData {
 
-
-    private final List<Doctors> doctorsList = new ArrayList<>();
-    private final List<Patients> patientsList = new ArrayList<>();
+    private final List<Patient> patientList = new ArrayList<>();
+    private final List<Pharmacist> pharmacistList = new ArrayList<>();
+    private final List<Medicine> medicineList = new ArrayList<>();
 
     // singleton pattern
     private static final FakeData INSTANCE = new FakeData();
@@ -19,72 +21,139 @@ public class FakeData {
     }
 
     private FakeData() {
-        // work this out better, add few more countries and students
-        Doctors dill = new Doctors("Dill", "General");
-        Doctors anas = new Doctors("Anas", "Heart");
 
-        doctorsList.add(dill);
-        doctorsList.add(anas);
+        Patient a = new Patient(1 , "John", "Doe", "john@gmai,com",  LocalDate.of(1998,01,01),"Heart Patient");
+        Patient b = new Patient(2 , "Johnson", "Goerde", "johnson@gmai,com",  LocalDate.of(1998,01,01),"Kidney");
+        Patient c = new Patient(3 , "Sania", "Dil", "sania@gmai,com",  LocalDate.of(1998,01,01),"Lungs");
+        Patient d = new Patient(4 , "kai", "Eujl", "kai@gmai,com",  LocalDate.of(1998,01,01),"Cough");
 
 
-        Patients b = new Patients("john", "HeartIssue", 2);
-        Patients a = new Patients("Hammy", "Brain issue",1);
+        patientList.add(a);
+        patientList.add(b);
+        patientList.add(c);
+        patientList.add(d);
 
-        patientsList.add(a);
-        patientsList.add(b);
+        Pharmacist p1 = new Pharmacist(1, "Anas", "Ahmad", "anas@gmail.com" );
+        Pharmacist p2 = new Pharmacist(2, "Shay", "Day", "shay@gmail.com" );
+        Pharmacist p3 = new Pharmacist(3, "Dill", "Jaa", "dill@gmail.com" );
 
+        pharmacistList.add(p1);
+        pharmacistList.add(p2);
+        pharmacistList.add(p3);
+
+        Medicine m1 = new Medicine(1, "abc", 12, 15);
+        Medicine m2 = new Medicine(2, "efg", 15, 17);
+        Medicine m3 = new Medicine(3, "hig", 11, 18);
+
+        medicineList.add(m1);
+        medicineList.add(m2);
+        medicineList.add(m3);
     }
 
-  /*  public List<Student> getStudents() {
-        return studentList;
-    }*/
-    public List<Doctors> getDoctorsList() { return doctorsList; }
-    public List<Patients> getPatientsList() {return patientsList;}
+    //Get Lists
 
+    //Patients
+    public List<Patient> getPatientsList() {return patientList;}
+
+    //Pharmacist
+    public List<Pharmacist> getPharmacistList(){return pharmacistList;}
+
+    //Medicines
+    public List<Medicine> getMedicineList(){return medicineList;}
+
+
+    ///Patients
+    // to delete patient
     public boolean deletePatient(int stNr) {
-        Patients patient = getPatientById(stNr);
+        Patient patient = getPatientById(stNr);
         if (patient == null){
             return false;
         }
 
-        return patientsList.remove(patient);
+        return patientList.remove(patient);
     }
-
-
-    public boolean addPatient(Patients p) {
-        if (this.getPatientById(p.getPatientId()) == null){
-            patientsList.add(p);
+    //add
+    public boolean addPatient(Patient p) {
+        if (this.getPatientById(p.getId()) == null){
+            patientList.add(p);
             return true;
         }
         return false;
     }
 
-
-    public Doctors getDoctor(String name) {
-        for (Doctors doctor : doctorsList) {
-            if (doctor.getName().equals(name)) {
-                return doctor;
+    //get
+    public Patient getPatientById(int id){
+        for (Patient patient: patientList){
+            if(patient.getId() == id){
+                return patient;
             }
         }
         return null;
     }
 
+    // update
+    public boolean updatePatient(int id, Patient p) {
+        Patient old = this.getPatientById(id);
+        if (old == null) {
+            return false;
+        }
+        old.setDisease(p.getDisease());
+        old.setEmail(p.getEmail());
 
-    public Patients getPatient(String name){
+        return true;
+    }
+
+    public boolean updateMedcine(int id, Medicine m) {
+        Medicine old = this.getMedicineById(id);
+        if (old == null) {
+            return false;
+        }
+        old.setMedName(m.getMedName());
+        old.setPrice(m.getPrice());
+        old.setSellingPrice(m.getSellingPrice());
+
+        return true;
+    }
+
+  /*  public Patients getPatient(String name){
         for (Patients patient: patientsList){
             if(patient.getPatientName().equals(name)){
                 return patient;
             }
         }
         return null;
-    }
+    }*/
 
-    public Patients getPatientById(int id){
-        for (Patients patient: patientsList){
-            if(patient.getPatientId() == id){
-                return patient;
+
+    //Medicines
+    //add
+    public boolean addMedicines(Medicine m) {
+        if (this.getMedicineById(m.getId()) == null){
+            medicineList.add(m);
+            return true;
+        }
+        return false;
+    }
+    //get
+    public Medicine getMedicineById(int id){
+        for (Medicine m: medicineList){
+            if(m.getId() == id){
+                return m;
             }
         }
         return null;
     }
+    //delete
+    public boolean DeleteMedicine(int medId) {
+        Medicine m = getMedicineById(medId);
+        if (m == null){
+            return false;
+        }
+
+        return medicineList.remove(m);
+    }
+
+
+
+
 }

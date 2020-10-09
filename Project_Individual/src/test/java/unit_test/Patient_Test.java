@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class Patients_Test {
+public class Patient_Test {
     @Test
     public void FirstTest(){
 
