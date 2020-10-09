@@ -18,9 +18,11 @@ public class PatientResources {
     @GET //GET at http://localhost:XXXX/patients/
     @Produces(MediaType.APPLICATION_JSON)
     public Response sayHello(){
+
         List<Patient> patients = fakeData.getPatientsList();
 
         GenericEntity<List<Patient>> entity = new GenericEntity<>(patients) {  };
+
         return Response.ok(entity).build();
     }
 }
