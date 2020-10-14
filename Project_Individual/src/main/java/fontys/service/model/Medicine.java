@@ -57,47 +57,4 @@ public class Medicine {
     }
 
 
-    /*  public String getMedName() {return medName;}
-
-    public void setMedName(String givenName){
-        this.medName = givenName;
-    }
-
-    public int getId() {return id;}
-   *//* public void setId(int givenId){ this.id = givenId; }*//*
-
-    public double getPrice(){return price;}
-   *//* public void setPrice(double givenPrice) {
-        this.price = givenPrice;
-    }*//*
-
-
-    public double getSellingPrice(){return sellingPrice;}
-    public void setSellingPrice(double givenSellingPrice) {
-        this.price = givenSellingPrice;
-    }*/
-
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Medicine m = (Medicine) o;
-        return Objects.equals(medName, m.medName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(medName);
-    }*/
-
-   /* @Override
-    public String toString() {
-        return "Medicine{" +
-                "id='" + id + '\'' +
-                "name='" + medName + '\'' +
-                ", Price='" + price + '\'' +
-                ", Selling Price ='" + sellingPrice + '\'' +
-                '}';
-    }*/
-
 }

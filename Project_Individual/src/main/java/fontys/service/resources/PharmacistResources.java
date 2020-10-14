@@ -9,6 +9,7 @@ import fontys.service.repository.FakeData;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -65,10 +66,14 @@ public class PharmacistResources {
     public Response getPatientById(@PathParam("id") int patientId) {
         //fakeData.getPatientById(patientId);x
         Patient p = fakeData.getPatientById(patientId);//studentsRepository.get(stNr);
+        List<Patient> list = new ArrayList<>();
+        list.add(p);
+        GenericEntity<List<Patient>> entity = new GenericEntity<>(list){};
+
         if (p == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid student number.").build();
         } else {
-            return Response.ok(p).build();
+            return Response.ok(entity).build();
         }
     }
 
@@ -166,6 +171,18 @@ public class PharmacistResources {
         }
     }
 
-
+    //to get medicines by patient id
+    @GET //GET at http://localhost:XXXX/pharmacist/3
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("patient/medicine/{id}")
+    public Response getMedicinByPatientId(@PathParam("id") int patientId) {
+        //fakeData.getPatientById(patientId);x
+        Patient p = fakeData.getPatientById(patientId);//studentsRepository.get(stNr);
+        if (p == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid student number.").build();
+        } else {
+            return Response.ok(p).build();
+        }
+    }
 
 }
