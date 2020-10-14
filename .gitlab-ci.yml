@@ -14,7 +14,7 @@ test:
     - ./gradlew test
   dependencies:
     - build
-sonarqube
+sonarqube:
   stage: sonarqube
   script:
     - cd Project_Individual/
