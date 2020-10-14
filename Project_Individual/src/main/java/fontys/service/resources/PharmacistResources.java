@@ -164,7 +164,8 @@ public class PharmacistResources {
     @Path("/medicine/{id}")
     public Response updateMedicine(@PathParam("id") int id, Medicine m) {
         // Idempotent method. Always update (even if the resource has already been updated before).
-        if (fakeData.updateMedcine(id, m)) {
+        if (fakeData.updateMedcine(id, m))
+        {
             return Response.noContent().build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid experience.").build();
