@@ -172,18 +172,5 @@ public class PharmacistResources {
         }
     }
 
-    //to get medicines by patient id
-    @GET //GET at http://localhost:XXXX/pharmacist/3
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("patient/medicine/{id}")
-    public Response getMedicinByPatientId(@PathParam("id") int patientId) {
-        //fakeData.getPatientById(patientId);x
-        Patient p = fakeData.getPatientById(patientId);//studentsRepository.get(stNr);
-        if (p == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid student number.").build();
-        } else {
-            return Response.ok(p).build();
-        }
-    }
 
 }
