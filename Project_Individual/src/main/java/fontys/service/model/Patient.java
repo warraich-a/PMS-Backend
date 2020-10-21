@@ -14,17 +14,7 @@ public class Patient {
     private String email;
     private LocalDate dateOfBirth;
     private String disease;
-    private int medicineId;
 
-    public Patient(int id, String firstName, String lastName, String email, LocalDate dateOfBirth, String disease, int medicineId) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.disease = disease;
-        this.medicineId = medicineId;
-    }
 
     public Patient(int id, String firstName, String lastName, String email, LocalDate dateOfBirth, String disease) {
         this.id = id;

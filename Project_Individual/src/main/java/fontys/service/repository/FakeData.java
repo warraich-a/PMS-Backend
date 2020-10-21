@@ -28,11 +28,6 @@ public class FakeData {
         Patient c = new Patient(3 , "Sania", "Dil", "sania@gmai,com",  LocalDate.of(1998,01,01),"Lungs");
         Patient d = new Patient(4 , "kai", "Eujl", "kai@gmai,com",  LocalDate.of(1998,01,01),"Cough");
 
-//        Patient a = new Patient(1 , "John", "Doe", "john@gmai,com",  LocalDate.of(1998,01,01),"Heart Patient",1 );
-//        Patient b = new Patient(2 , "Johnson", "Goerde", "johnson@gmai,com",  LocalDate.of(1998,01,01),"Kidney",2);
-//        Patient c = new Patient(3 , "Sania", "Dil", "sania@gmai,com",  LocalDate.of(1998,01,01),"Lungs", 3);
-//        Patient d = new Patient(4 , "kai", "Eujl", "kai@gmai,com",  LocalDate.of(1998,01,01),"Cough",1 );
-
         patientList.add(a);
         patientList.add(b);
         patientList.add(c);
@@ -158,7 +153,7 @@ public class FakeData {
         return null;
     }
     //delete
-    public boolean DeleteMedicine(int medId) {
+    public boolean deleteMedicine(int medId) {
         Medicine m = getMedicineById(medId);
         if (m == null){
             return false;

@@ -13,16 +13,7 @@ public class Pharmacist {
     private String email;
     //private String password;
     private LocalDateTime dateOfBirth;
-    private int patientId;
 
-    public Pharmacist(int id, String firstName, String lastName, String email, LocalDateTime dateOfBirth, int patientId) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
-        this.patientId = patientId;
-    }
 
     public Pharmacist(int givenId, String givenFirstName, String givenLastName, String givenEmail) {
         id = givenId;

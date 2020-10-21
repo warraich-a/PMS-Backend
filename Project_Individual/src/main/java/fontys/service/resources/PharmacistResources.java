@@ -121,7 +121,6 @@ public class PharmacistResources {
         if (!fakeData.addMedicines(m)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
         {
             String entity =  "Medicine with the given number " + m.getId() + " already exists.";
-            // throw new Exception(Response.Status.CONFLICT, "This topic already exists");
             return Response.status(Response.Status.CONFLICT).entity(entity).build();
         } else {
             String url = uriInfo.getAbsolutePath() + "/" + m.getId(); // url of the created student
@@ -136,14 +135,12 @@ public class PharmacistResources {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicinesById(@PathParam("id") int medID){
 
-        Medicine p = fakeData.getMedicineById(medID);//studentsRepository.get(stNr);
+        Medicine p = fakeData.getMedicineById(medID);
         List<Medicine> list = new ArrayList<>();
         list.add(p);
         GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
 
-        //fakeData.getPatientById(patientId);
-        //Medicine m = fakeData.getMedicineById(medID);//studentsRepository.get(stNr);
-        if (entity == null) {
+        if (p == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid medicine id.").build();
         } else {
             return Response.ok(entity).build();
@@ -155,14 +152,10 @@ public class PharmacistResources {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicinesByPatientId(@PathParam("patientId") int medID){
 
-        List<Medicine> list = fakeData.getMedicinesByPatientId(medID);//studentsRepository.get(stNr);
-//        List<Medicine> list = new ArrayList<>();
-//        list.add(p);
+        List<Medicine> list = fakeData.getMedicinesByPatientId(medID);
         GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
 
-        //fakeData.getPatientById(patientId);
-        //Medicine m = fakeData.getMedicineById(medID);//studentsRepository.get(stNr);
-        if (entity == null) {
+        if (list == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid medicine id.").build();
         } else {
             return Response.ok(entity).build();
@@ -175,7 +168,7 @@ public class PharmacistResources {
     @DELETE //DELETE at http://localhost:XXXX/pharmacist/medicine/2/delete
     @Path("medicine/{id}/delete")
     public Response deleteMedicine(@PathParam("id") int medId) {
-        fakeData.DeleteMedicine(medId);
+        fakeData.deleteMedicine(medId);
         // Idempotent method. Always return the same response (even if the resource has already been deleted before).
 
         return Response.noContent().build();
