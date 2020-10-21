@@ -1,5 +1,6 @@
 package fontys.service.repository;
 
+import fontys.service.model.Management;
 import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
 import fontys.service.model.Pharmacist;
@@ -13,7 +14,7 @@ public class FakeData {
     private final List<Patient> patientList = new ArrayList<>();
     private final List<Pharmacist> pharmacistList = new ArrayList<>();
     private final List<Medicine> medicineList = new ArrayList<>();
-
+    private final List<Management> managements = new ArrayList<>();
     // singleton pattern
     private static final FakeData INSTANCE = new FakeData();
     public static FakeData getInstance() {
@@ -27,6 +28,10 @@ public class FakeData {
         Patient c = new Patient(3 , "Sania", "Dil", "sania@gmai,com",  LocalDate.of(1998,01,01),"Lungs");
         Patient d = new Patient(4 , "kai", "Eujl", "kai@gmai,com",  LocalDate.of(1998,01,01),"Cough");
 
+//        Patient a = new Patient(1 , "John", "Doe", "john@gmai,com",  LocalDate.of(1998,01,01),"Heart Patient",1 );
+//        Patient b = new Patient(2 , "Johnson", "Goerde", "johnson@gmai,com",  LocalDate.of(1998,01,01),"Kidney",2);
+//        Patient c = new Patient(3 , "Sania", "Dil", "sania@gmai,com",  LocalDate.of(1998,01,01),"Lungs", 3);
+//        Patient d = new Patient(4 , "kai", "Eujl", "kai@gmai,com",  LocalDate.of(1998,01,01),"Cough",1 );
 
         patientList.add(a);
         patientList.add(b);
@@ -48,6 +53,15 @@ public class FakeData {
         medicineList.add(m1);
         medicineList.add(m2);
         medicineList.add(m3);
+
+        Management mg1 = new Management(1, 1);
+        Management mg2 = new Management(1, 2);
+        Management mg3 = new Management(3, 3);
+
+        managements.add(mg1);
+        managements.add(mg2);
+        managements.add(mg3);
+
     }
 
     //Get Lists
@@ -153,6 +167,25 @@ public class FakeData {
         return medicineList.remove(m);
     }
 
+
+    //get medicine by patient id
+    public List<Medicine> getMedicinesByPatientId(int patientId){
+
+        int medId;
+        List<Medicine> foundMedicines = new ArrayList<>();
+        for(Management m: managements){
+            if(m.getPatientId() == patientId){
+                medId = m.getMedicineId();
+                for (Medicine medicine: medicineList){
+                       if(medId == medicine.getId()){
+                           foundMedicines.add(medicine);
+                       }
+                }
+            }
+        }
+
+        return foundMedicines;
+    }
 
 
 

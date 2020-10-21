@@ -71,7 +71,7 @@ public class PharmacistResources {
         GenericEntity<List<Patient>> entity = new GenericEntity<>(list){};
 
         if (p == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid student number.").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid student number.").build();
         } else {
             return Response.ok(entity).build();
         }
@@ -136,15 +136,38 @@ public class PharmacistResources {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicinesById(@PathParam("id") int medID){
 
+        Medicine p = fakeData.getMedicineById(medID);//studentsRepository.get(stNr);
+        List<Medicine> list = new ArrayList<>();
+        list.add(p);
+        GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
+
         //fakeData.getPatientById(patientId);
-        Medicine m = fakeData.getMedicineById(medID);//studentsRepository.get(stNr);
-        if (m == null) {
+        //Medicine m = fakeData.getMedicineById(medID);//studentsRepository.get(stNr);
+        if (entity == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid medicine id.").build();
         } else {
-            return Response.ok(m).build();
+            return Response.ok(entity).build();
         }
     }
 
+    @GET //GET at http://localhost:XXXX/pharmacist/medicine/2
+    @Path("medicines/{patientId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMedicinesByPatientId(@PathParam("patientId") int medID){
+
+        List<Medicine> list = fakeData.getMedicinesByPatientId(medID);//studentsRepository.get(stNr);
+//        List<Medicine> list = new ArrayList<>();
+//        list.add(p);
+        GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
+
+        //fakeData.getPatientById(patientId);
+        //Medicine m = fakeData.getMedicineById(medID);//studentsRepository.get(stNr);
+        if (entity == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid medicine id.").build();
+        } else {
+            return Response.ok(entity).build();
+        }
+    }
 
 
     //delete
