@@ -70,6 +70,7 @@ public class FakeData {
     //Medicines
     public List<Medicine> getMedicineList(){return medicineList;}
 
+    public  List<Management> getManagements (){return  managements;}
 
     ///Patients
     // to delete patient
@@ -183,5 +184,22 @@ public class FakeData {
     }
 
 
+    // add medicine to a patient
+    public boolean addMedicineToPatient(Management m) {
+
+        //Management newNed = new Management(patientId, medicineId);
+
+        for (Patient p : patientList) {
+            if (p.getId() == m.getPatientId()) {
+                for (Medicine med : medicineList) {
+                    if (med.getId() == m.getMedicineId()) {
+                        managements.add(m);
+                        return  true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
 }

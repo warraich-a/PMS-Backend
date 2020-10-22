@@ -11,6 +11,7 @@ public class Medicine {
     private double price;
     private double sellingPrice;
 
+
     public Medicine(int givenProductId, String givenName, double givenPrice , double givenSellingPrice)
     {
         this.id = givenProductId;

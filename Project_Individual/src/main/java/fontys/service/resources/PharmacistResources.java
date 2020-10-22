@@ -1,6 +1,7 @@
 package fontys.service.resources;
 
 
+import fontys.service.model.Management;
 import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
 import fontys.service.model.Pharmacist;
@@ -30,6 +31,16 @@ public class PharmacistResources {
         return Response.ok(entity).build();
     }
 
+    //get
+    @GET //GET at http://localhost:XXXX/pharmacist/medicines
+    @Path("managements")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getManagements(){
+        List<Management> m = fakeData.getManagements();
+
+        GenericEntity<List<Management>> entity = new GenericEntity<>(m) {  };
+        return Response.ok(entity).build();
+    }
 
     //Patients
     //To get all the patients
@@ -147,20 +158,7 @@ public class PharmacistResources {
         }
     }
 
-    @GET //GET at http://localhost:XXXX/pharmacist/medicine/2
-    @Path("medicines/{patientId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getMedicinesByPatientId(@PathParam("patientId") int medID){
 
-        List<Medicine> list = fakeData.getMedicinesByPatientId(medID);
-        GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
-
-        if (list == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid medicine id.").build();
-        } else {
-            return Response.ok(entity).build();
-        }
-    }
 
 
     //delete
@@ -189,4 +187,36 @@ public class PharmacistResources {
     }
 
 
+    @GET //GET at http://localhost:XXXX/pharmacist/medicine/2
+    @Path("medicines/{patientId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMedicinesByPatientId(@PathParam("patientId") int medID){
+
+        List<Medicine> list = fakeData.getMedicinesByPatientId(medID);
+        GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
+
+        if (list == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid medicine id.").build();
+        } else {
+            return Response.ok(entity).build();
+        }
+    }
+    //add medicine to a patient
+    //add
+    @POST //http://localhost:XXXX/pharmacist/medicine
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("patient/medicine")
+    public Response addMedicineToPatient(Management m) {
+
+
+        if (!fakeData.addMedicineToPatient(m)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
+        {
+            String entity =  "Something is wrong";
+            return Response.status(Response.Status.CONFLICT).entity(entity).build();
+        } else {
+            String url = uriInfo.getAbsolutePath() + "/" + m.getId(); // url of the created student
+            URI uri = URI.create(url);
+            return Response.created(uri).build();
+        }
+    }
 }
