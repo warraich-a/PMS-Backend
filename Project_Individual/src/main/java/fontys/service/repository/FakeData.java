@@ -22,16 +22,16 @@ public class FakeData {
     }
 
     private FakeData() {
-
-        Patient a = new Patient(1 , "John", "Doe", "john@gmai,com",  LocalDate.of(1998,01,01),"Heart Patient");
-        Patient b = new Patient(2 , "Johnson", "Goerde", "johnson@gmai,com",  LocalDate.of(1998,01,01),"Kidney");
-        Patient c = new Patient(3 , "Sania", "Dil", "sania@gmai,com",  LocalDate.of(1998,01,01),"Lungs");
-        Patient d = new Patient(4 , "kai", "Eujl", "kai@gmai,com",  LocalDate.of(1998,01,01),"Cough");
-
-        patientList.add(a);
-        patientList.add(b);
-        patientList.add(c);
-        patientList.add(d);
+//
+//        Patient a = new Patient(1 , "John", "Doe", "john@gmai,com",  LocalDate.of(1998,01,01),"Heart Patient");
+//        Patient b = new Patient(2 , "Johnson", "Goerde", "johnson@gmai,com",  LocalDate.of(1998,01,01),"Kidney");
+//        Patient c = new Patient(3 , "Sania", "Dil", "sania@gmai,com",  LocalDate.of(1998,01,01),"Lungs");
+//        Patient d = new Patient(4 , "kai", "Eujl", "kai@gmai,com",  LocalDate.of(1998,01,01),"Cough");
+//
+//        patientList.add(a);
+//        patientList.add(b);
+//        patientList.add(c);
+//        patientList.add(d);
 
         Pharmacist p1 = new Pharmacist(1, "Anas", "Ahmad", "anas@gmail.com" );
         Pharmacist p2 = new Pharmacist(2, "Shay", "Day", "shay@gmail.com" );
@@ -41,13 +41,13 @@ public class FakeData {
         pharmacistList.add(p2);
         pharmacistList.add(p3);
 
-        Medicine m1 = new Medicine(1, "abc", 12, 15);
-        Medicine m2 = new Medicine(2, "efg", 15, 17);
-        Medicine m3 = new Medicine(3, "hig", 11, 18);
-
-        medicineList.add(m1);
-        medicineList.add(m2);
-        medicineList.add(m3);
+//        Medicine m1 = new Medicine(1, "abc", 12, 15);
+//        Medicine m2 = new Medicine(2, "efg", 15, 17);
+//        Medicine m3 = new Medicine(3, "hig", 11, 18);
+//
+//        medicineList.add(m1);
+//        medicineList.add(m2);
+//        medicineList.add(m3);
 
         Management mg1 = new Management(1, 1);
         Management mg2 = new Management(1, 2);
@@ -186,8 +186,6 @@ public class FakeData {
 
     // add medicine to a patient
     public boolean addMedicineToPatient(Management m) {
-
-        //Management newNed = new Management(patientId, medicineId);
 
         for (Patient p : patientList) {
             if (p.getId() == m.getPatientId()) {

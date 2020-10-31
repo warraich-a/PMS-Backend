@@ -2,5 +2,5 @@ projectKey=org.example:PMS
 serverUrl=http://localhost:9000
 serverVersion=8.5.0.37579
 dashboardUrl=http://localhost:9000/dashboard?id=org.example%3APMS
-ceTaskId=AXVNOeszO-edAEHPe2_7
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXVNOeszO-edAEHPe2_7
+ceTaskId=AXVvUN_BO-edAEHPe3AF
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXVvUN_BO-edAEHPe3AF

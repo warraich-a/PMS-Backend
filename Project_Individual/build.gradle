@@ -33,4 +33,14 @@ dependencies {
     // Logging
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.+'
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.+'
+
+
+    implementation group: 'net.sf.ucanaccess', name: 'ucanaccess', version:'+'
+
+    //database driver
+    compile 'mysql:mysql-connector-java:5.1.23'
+    runtime 'mysql:mysql-connector-java:5.1.23'
+
+    // https://mvnrepository.com/artifact/javax.xml.parsers/jaxp-api
+    compile group: 'javax.xml.parsers', name: 'jaxp-api', version: '1.4.5'
 }

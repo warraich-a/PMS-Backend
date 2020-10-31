@@ -3,7 +3,6 @@ package fontys.service.model;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.Objects;
 
 @XmlRootElement
 public class Patient {
@@ -12,17 +11,32 @@ public class Patient {
     private String firstName;
     private String lastName;
     private String email;
-    private LocalDate dateOfBirth;
+    private int year;
+    private int month;
+    private int day;
     private String disease;
+    private String password;
 
+//    public Patient(int id, String firstName, String lastName, String email, String password, Date dateOfBirth, String disease) {
+//        this.id = id;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.password = password;
+//        this.dateOfBirth = dateOfBirth;
+//        this.disease = disease;
+//    }
 
-    public Patient(int id, String firstName, String lastName, String email, LocalDate dateOfBirth, String disease) {
+    public Patient(int id, String firstName, String lastName, String email, int year, int month, int day, String disease, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.dateOfBirth = dateOfBirth;
+        this.year = year;
+        this.month = month;
+        this.day = day;
         this.disease = disease;
+        this.password = password;
     }
 
     public Patient() {
@@ -61,12 +75,28 @@ public class Patient {
         this.email = email;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+    public int getYear() {
+        return year;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public String getDisease() {
@@ -75,5 +105,13 @@ public class Patient {
 
     public void setDisease(String disease) {
         this.disease = disease;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

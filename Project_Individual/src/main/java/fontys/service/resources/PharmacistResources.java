@@ -1,11 +1,13 @@
 package fontys.service.resources;
 
 
+import fontys.service.PersistenceController;
 import fontys.service.model.Management;
 import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
 import fontys.service.model.Pharmacist;
 import fontys.service.repository.FakeData;
+import fontys.service.repository.JDBCMedicineRepository;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -17,6 +19,7 @@ import java.util.List;
 @Path("pharmacist")
 public class PharmacistResources {
     private final FakeData fakeData = FakeData.getInstance();
+
     @Context
     private UriInfo uriInfo;
 
@@ -25,6 +28,7 @@ public class PharmacistResources {
     @GET //GET at http://localhost:XXXX/patients/
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPharmacists(){
+
         List<Pharmacist> pharmacists = fakeData.getPharmacistList();
 
         GenericEntity<List<Pharmacist>> entity = new GenericEntity<>(pharmacists) {  };
@@ -48,7 +52,8 @@ public class PharmacistResources {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("patients")
     public Response sayHello(){
-        List<Patient> patients = fakeData.getPatientsList();
+        PersistenceController persistenceController = new PersistenceController();
+        List<Patient> patients = persistenceController.getPatients();
 
         GenericEntity<List<Patient>> entity = new GenericEntity<>(patients) {  };
         return Response.ok(entity).build();
@@ -58,10 +63,12 @@ public class PharmacistResources {
     @POST //POST at http://localhost:XXXX/patient/
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("patient")
-    public Response createStudent(Patient p) {
-        if (!fakeData.addPatient(p)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
+    public Response addStudent(Patient p) {
+        PersistenceController persistenceController = new PersistenceController();
+
+        if (!persistenceController.addPatient(p)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
         {
-            String entity =  "Patient with the given number " + p.getId() + " already exists.";
+            String entity =  "Patient with the given name " + p.getFirstName()+" "+p.getLastName() + " already exists.";
             // throw new Exception(Response.Status.CONFLICT, "This topic already exists");
             return Response.status(Response.Status.CONFLICT).entity(entity).build();
         } else {
@@ -76,7 +83,11 @@ public class PharmacistResources {
     @Path("patient/{id}")
     public Response getPatientById(@PathParam("id") int patientId) {
         //fakeData.getPatientById(patientId);x
-        Patient p = fakeData.getPatientById(patientId);//studentsRepository.get(stNr);
+//        Patient p = fakeData.getPatientById(patientId);//studentsRepository.get(stNr);
+
+        PersistenceController persistenceController = new PersistenceController();
+
+        Patient p = persistenceController.getPatientById(patientId);
         List<Patient> list = new ArrayList<>();
         list.add(p);
         GenericEntity<List<Patient>> entity = new GenericEntity<>(list){};
@@ -119,7 +130,10 @@ public class PharmacistResources {
     @Path("medicines")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicines(){
-        List<Medicine> m = fakeData.getMedicineList();
+        PersistenceController persistenceController = new PersistenceController();
+//        List<Medicine> medicines = fakedata.getMedicines();
+
+        List<Medicine> m = persistenceController.getMedicines();
 
         GenericEntity<List<Medicine>> entity = new GenericEntity<>(m) {  };
         return Response.ok(entity).build();
@@ -129,9 +143,11 @@ public class PharmacistResources {
     @Path("medicine")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response AddMedicine(Medicine m) {
-        if (!fakeData.addMedicines(m)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
+        PersistenceController persistenceController = new PersistenceController();
+
+        if (!persistenceController.addMedicine(m)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
         {
-            String entity =  "Medicine with the given number " + m.getId() + " already exists.";
+            String entity =  "Medicine with the given number " + m.getMedName() + " already exists.";
             return Response.status(Response.Status.CONFLICT).entity(entity).build();
         } else {
             String url = uriInfo.getAbsolutePath() + "/" + m.getId(); // url of the created student
@@ -145,16 +161,18 @@ public class PharmacistResources {
     @Path("medicine/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicinesById(@PathParam("id") int medID){
+        PersistenceController persistenceController = new PersistenceController();
 
-        Medicine p = fakeData.getMedicineById(medID);
-        List<Medicine> list = new ArrayList<>();
-        list.add(p);
-        GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
+        Medicine p = persistenceController.getMedicineById(medID);
+
+//        List<Medicine> list = new ArrayList<>();
+//        list.add(p);
+//        GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
 
         if (p == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid medicine id.").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("Medicine with number " + medID + " cannot be found").build();
         } else {
-            return Response.ok(entity).build();
+            return Response.ok(p).build();
         }
     }
 
@@ -166,19 +184,27 @@ public class PharmacistResources {
     @DELETE //DELETE at http://localhost:XXXX/pharmacist/medicine/2/delete
     @Path("medicine/{id}/delete")
     public Response deleteMedicine(@PathParam("id") int medId) {
-        fakeData.deleteMedicine(medId);
-        // Idempotent method. Always return the same response (even if the resource has already been deleted before).
+        PersistenceController persistenceController = new PersistenceController();
 
-        return Response.noContent().build();
+        if(persistenceController.deleteMedicine(medId))
+        {
+            return Response.noContent().build();
+        }
+        else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
     }
 
     // update
     @PUT //PUT at http://localhost:XXXX/users/profile/experience/id
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/medicine/{id}")
-    public Response updateMedicine(@PathParam("id") int id, Medicine m) {
-        // Idempotent method. Always update (even if the resource has already been updated before).
-        if (fakeData.updateMedcine(id, m))
+    @Path("medicine")
+    public Response updateMedicine(Medicine m) {
+
+        PersistenceController persistenceController = new PersistenceController();
+
+        if (persistenceController.updateMedicine(m))
         {
             return Response.noContent().build();
         } else {
@@ -209,7 +235,7 @@ public class PharmacistResources {
     public Response addMedicineToPatient(Management m) {
 
 
-        if (!fakeData.addMedicineToPatient(m)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
+        if (!fakeData.addMedicineToPatient(m))
         {
             String entity =  "Something is wrong";
             return Response.status(Response.Status.CONFLICT).entity(entity).build();

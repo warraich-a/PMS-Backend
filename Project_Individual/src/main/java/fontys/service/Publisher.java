@@ -1,11 +1,13 @@
 package fontys.service;
 
 
+import fontys.service.model.Medicine;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +18,12 @@ class Publisher {
 
     private static final URI BASE_URI = URI.create("http://localhost:9090/");
 
+
     public static void main(String[] args) {
+//        PersistenceController persistenceController = new PersistenceController();
+////        List<Medicine> medicines = persistenceController.getMedicines();
+//
+//        persistenceController.getMedicines();
 
         try {
             CustomApplicationConfig customApplicationConfig = new CustomApplicationConfig();

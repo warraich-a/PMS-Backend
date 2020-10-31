@@ -12,9 +12,9 @@ public class Medicine {
     private double sellingPrice;
 
 
-    public Medicine(int givenProductId, String givenName, double givenPrice , double givenSellingPrice)
+    public Medicine(int givenId, String givenName, double givenPrice , double givenSellingPrice)
     {
-        this.id = givenProductId;
+        this.id = givenId;
         this.medName = givenName;
         this.price = givenPrice;
         this.sellingPrice = givenSellingPrice;

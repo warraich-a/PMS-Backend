@@ -5,7 +5,6 @@ public class Management {
     private int medicineId;
     private int id;
     private static int idSeeder = 1;
-    private boolean isActive;
 
     public Management(int patientId, int medicineId) {
         this.id = idSeeder;

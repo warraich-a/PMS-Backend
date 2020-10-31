@@ -1,6 +1,6 @@
 package fontys.service.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import   javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
