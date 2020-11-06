@@ -15,7 +15,7 @@ public class Management_Test {
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean addedMedicine;
-        Management m =  new Management(21,115, true);
+        Management m =  new Management(20,114, true);
         addedMedicine = persistenceController.addMedicineToPatient(m);
 
         assertEquals(isAdded, addedMedicine);

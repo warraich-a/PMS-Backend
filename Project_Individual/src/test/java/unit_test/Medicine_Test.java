@@ -68,7 +68,7 @@ public class Medicine_Test {
         PersistenceController persistenceController = new PersistenceController();
         boolean isDeleted = true;
         boolean deleteMedicine;
-        deleteMedicine= persistenceController.deleteMedicine(116);
+        deleteMedicine= persistenceController.deleteMedicine(119);
 
         assertEquals(isDeleted, deleteMedicine);
 
