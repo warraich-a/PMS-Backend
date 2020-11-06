@@ -45,7 +45,7 @@ public class Patient_Test {
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean newPatient;
-        Patient a = new Patient("John", "Doee", "john@gmai,com", 2000, "Mar",5, "Lungs", "1324", "Strraat", 5, "Eindhoven","5455FD");
+        Patient a = new Patient(firstName, lastName, "john@gmai,com", 2000, "Mar",5, "Lungs", "1324", "Strraat", 5, "Eindhoven","5455FD");
         newPatient = persistenceController.addPatient(a);
 //        id = a.getId();
 
@@ -69,7 +69,7 @@ public class Patient_Test {
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean deletePatient;
-        deletePatient= persistenceController.deletePatient(22);
+        deletePatient= persistenceController.deletePatient(23);
 
         assertEquals(isAdded, deletePatient);
 
