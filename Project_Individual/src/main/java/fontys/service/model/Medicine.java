@@ -20,6 +20,13 @@ public class Medicine {
         this.sellingPrice = givenSellingPrice;
 
     }
+    public Medicine(String givenName, double givenPrice , double givenSellingPrice)
+    {
+        this.medName = givenName;
+        this.price = givenPrice;
+        this.sellingPrice = givenSellingPrice;
+
+    }
 
     public Medicine() {
 

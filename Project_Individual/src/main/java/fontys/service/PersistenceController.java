@@ -1,7 +1,9 @@
 package fontys.service;
 
+import fontys.service.model.Management;
 import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
+import fontys.service.repository.JDBCManagementRepository;
 import fontys.service.repository.JDBCMedicineRepository;
 import fontys.service.repository.JDBCPatientRepository;
 import fontys.service.repository.DatabaseException;
@@ -10,16 +12,11 @@ import java.util.List;
 
 public class PersistenceController {
 
-    /**
-     * Show/print all countries.
-     */
-
-
     public List<Patient> getPatients() {
         JDBCPatientRepository jdbcPatientRepository = new JDBCPatientRepository();
 
         try {
-            List<Patient> patients = (List<Patient>) jdbcPatientRepository.getPatients();
+            List<Patient> patients =  jdbcPatientRepository.getPatients();
             return patients;
         } catch (DatabaseException e) {
             e.printStackTrace();
@@ -55,19 +52,48 @@ public class PersistenceController {
             return false;
         }
     }
+    //update patient
+    public boolean updatePatient(Patient patient) {
+        JDBCPatientRepository patientRepository = new JDBCPatientRepository();
+        try {
+            if(patientRepository.updatePatient(patient)) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+//            System.out.println("Created student: " + medicine);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    //delete medicine
+    public boolean deletePatient(int patientId) {
+        JDBCPatientRepository patientRepository = new JDBCPatientRepository();
+        try {
+            if(patientRepository.deletePatient(patientId)) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+//            System.out.println("Created student: " + medicine);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     //get all medicines
     public List<Medicine> getMedicines() {
         JDBCMedicineRepository medicineRepository = new JDBCMedicineRepository();
 
         try {
-            List<Medicine> medicines = (List<Medicine>) medicineRepository.getMedicines();
+            List<Medicine> medicines =  medicineRepository.getMedicines();
             return medicines;
-//            System.out.println("All countries");
-//            for (Medicine medicine : medicines) {
-//                System.out.println("\t" + medicine.getMedName());
-//                //return medicines;
-//            }
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
@@ -98,7 +124,6 @@ public class PersistenceController {
             {
                 return false;
             }
-//            System.out.println("Created student: " + medicine);
         } catch (DatabaseException e) {
             e.printStackTrace();
             return false;
@@ -115,7 +140,6 @@ public class PersistenceController {
             {
                 return false;
             }
-//            System.out.println("Created student: " + medicine);
         } catch (DatabaseException e) {
             e.printStackTrace();
             return false;
@@ -133,59 +157,53 @@ public class PersistenceController {
             {
                 return false;
             }
-//            System.out.println("Created student: " + medicine);
         } catch (DatabaseException e) {
             e.printStackTrace();
             return false;
         }
     }
-//
-//    /**
-//     * Show/print all students.
-//     */
-//    void showAllStudents() {
-//        JDBCStudentsRepository studentsRepository = new JDBCStudentsRepository();
-//        try {
-//            Collection<Student> students = studentsRepository.getStudents();
-//            System.out.println("All students");
-//            for (Student student : students) {
-//                System.out.println("\t" + student);
-//            }
-//        } catch (SchoolDatabaseException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * Show/print all students from given country.
-//     *
-//     * @param country from which the students are shown.
-//     */
-//    void showStudents(Country country) {
-//        JDBCStudentsRepository studentsRepository = new JDBCStudentsRepository();
-//        try {
-//            Collection<Student> students = studentsRepository.getStudents(country);
-//            System.out.println("Students from country " + country);
-//            for (Student student : students) {
-//                System.out.println("\t" + student);
-//            }
-//        } catch (SchoolDatabaseException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * Add/create a new student.
-//     *
-//     * @param student should be inserted into the DB.
-//     */
-//    void addStudent(Student student) {
-//        JDBCStudentsRepository studentsRepository = new JDBCStudentsRepository();
-//        try {
-//            studentsRepository.create(student);
-//            System.out.println("Created student: " + student);
-//        } catch (SchoolDatabaseException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
+
+    //add medicine
+    public List<Management> getManagements() {
+        JDBCManagementRepository managementRepository = new JDBCManagementRepository();
+
+        try {
+            List<Management> managements = (List<Management>) managementRepository.getManagements();
+            return managements;
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //add medicine
+    public boolean addMedicineToPatient(Management management) {
+        JDBCManagementRepository managementRepository = new JDBCManagementRepository();
+        try {
+            if(managementRepository.addMedicineToPatient(management)) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //add medicine
+    public List<Medicine> getMedicineByPatientId(int patientId) {
+        JDBCManagementRepository managementRepository = new JDBCManagementRepository();
+        try {
+            List<Medicine> medicines = (List<Medicine>) managementRepository.getMedicinesByPatientId(patientId);
+            return medicines;
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

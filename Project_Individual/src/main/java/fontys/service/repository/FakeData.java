@@ -49,13 +49,13 @@ public class FakeData {
 //        medicineList.add(m2);
 //        medicineList.add(m3);
 
-        Management mg1 = new Management(1, 1);
-        Management mg2 = new Management(1, 2);
-        Management mg3 = new Management(3, 3);
-
-        managements.add(mg1);
-        managements.add(mg2);
-        managements.add(mg3);
+//        Management mg1 = new Management(1, 1);
+//        Management mg2 = new Management(1, 2);
+//        Management mg3 = new Management(3, 3);
+//
+//        managements.add(mg1);
+//        managements.add(mg2);
+//        managements.add(mg3);
 
     }
 

@@ -12,22 +12,16 @@ public class Patient {
     private String lastName;
     private String email;
     private int year;
-    private int month;
+    private String month;
     private int day;
     private String disease;
     private String password;
+    private String streetName;
+    private int houseNr;
+    private String city;
+    private String zipcode;
 
-//    public Patient(int id, String firstName, String lastName, String email, String password, Date dateOfBirth, String disease) {
-//        this.id = id;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.password = password;
-//        this.dateOfBirth = dateOfBirth;
-//        this.disease = disease;
-//    }
-
-    public Patient(int id, String firstName, String lastName, String email, int year, int month, int day, String disease, String password) {
+    public Patient(int id, String firstName, String lastName, String email, int year, String month, int day, String disease, String password, String streetName, int houseNr, String city, String zipcode) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,10 +31,29 @@ public class Patient {
         this.day = day;
         this.disease = disease;
         this.password = password;
+        this.streetName = streetName;
+        this.houseNr = houseNr;
+        this.city = city;
+        this.zipcode = zipcode;
     }
 
-    public Patient() {
+    public Patient(String firstName, String lastName, String email, int year, String month, int day, String disease, String password, String streetName, int houseNr, String city, String zipcode) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.disease = disease;
+        this.password = password;
+        this.streetName = streetName;
+        this.houseNr = houseNr;
+        this.city = city;
+        this.zipcode = zipcode;
+    }
 
+
+    public Patient() {
     }
 
     public int getId() {
@@ -83,11 +96,11 @@ public class Patient {
         this.year = year;
     }
 
-    public int getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 
@@ -113,5 +126,37 @@ public class Patient {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public int getHouseNr() {
+        return houseNr;
+    }
+
+    public void setHouseNr(int houseNr) {
+        this.houseNr = houseNr;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 }

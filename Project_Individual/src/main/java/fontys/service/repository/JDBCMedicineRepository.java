@@ -7,29 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCMedicineRepository extends JDBCRepository  {
-//    // @TODO Implement all methods (with JDBC) which you added to CountriesRepository.
-//    public Medicine getCountry(String countryCode) throws databaseException {
-//
-//
-//        Connection connection = this.getDatabaseConnection();
-//        String sql = "SELECT * FROM medicine WHERE country_code = ?";
-//        try {
-//            PreparedStatement statement = connection.prepareStatement(sql);
-//            statement.setString(1, countryCode); // set country_code parameter
-//            ResultSet resultSet = statement.executeQuery();
-//            if (!resultSet.next()){
-//                connection.close();
-//                throw new SchoolDatabaseException("Country with code " + countryCode + " cannot be found");
-//            } else {
-//                String name = resultSet.getString("name");
-//                connection.close();
-//                return new Country(countryCode, name);
-//            }
-//        } catch (SQLException throwable) {
-//            throw new SchoolDatabaseException("Cannot read countries from the database.",throwable);
-//        }
-//    }
-//
+
     public List<Medicine> getMedicines() throws DatabaseException {
         List<Medicine> medicines = new ArrayList<>();
 

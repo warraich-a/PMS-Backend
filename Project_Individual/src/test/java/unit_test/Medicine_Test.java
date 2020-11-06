@@ -2,6 +2,7 @@ package unit_test;
 
 import fontys.service.PersistenceController;
 import fontys.service.model.Management;
+import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class Patient_Test {
+public class Medicine_Test {
 
     // class variable
     final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
@@ -34,59 +35,55 @@ public class Patient_Test {
         }
         return builder.toString();
     }
-    private String firstName;
-    private String lastName;
-    private int id;
+    private String medicineName;
 
     @Test
-    public void AddNewPatientTest(){
-        firstName = randomIdentifier();
-        lastName = randomIdentifier();
+    public void AddNewMedicineTest(){
+        medicineName = randomIdentifier();
+
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
-        boolean newPatient;
-        Patient a = new Patient("John", "Doee", "john@gmai,com", 2000, "Mar",5, "Lungs", "1324", "Strraat", 5, "Eindhoven","5455FD");
-        newPatient = persistenceController.addPatient(a);
-//        id = a.getId();
+        boolean newMedicine;
+        Medicine m = new Medicine(medicineName, 10, 15);
+        newMedicine = persistenceController.addMedicine(m);
 
-        assertEquals(isAdded, newPatient);
+        assertEquals(isAdded, newMedicine);
 
     }
     @Test
-    public void UpdatePatientTest(){
+    public void UpdateMedicineTest(){
+        medicineName = randomIdentifier();
         PersistenceController persistenceController = new PersistenceController();
-        boolean isAdded = true;
-        boolean updatedPatient;
-        Patient a = new Patient(23,"John", "Doooooe", "john@gmai,com", 2000, "Mar",5, "Lungs", "1asfd324", "Straat", 5, "Eindhoven","5455FD");
-        updatedPatient= persistenceController.updatePatient(a);
+        boolean isUpdate = true;
+        boolean updateMedicine;
+        Medicine m = new Medicine(117, medicineName, 18, 20);
+        updateMedicine= persistenceController.updateMedicine(m);
 
-        assertEquals(isAdded, updatedPatient);
+        assertEquals(isUpdate, updateMedicine);
 
     }
 
     @Test
-    public void deletePatientTest(){
+    public void deleteMedicineTest(){
         PersistenceController persistenceController = new PersistenceController();
-        boolean isAdded = true;
-        boolean deletePatient;
-        deletePatient= persistenceController.deletePatient(22);
+        boolean isDeleted = true;
+        boolean deleteMedicine;
+        deleteMedicine= persistenceController.deleteMedicine(116);
 
-        assertEquals(isAdded, deletePatient);
+        assertEquals(isDeleted, deleteMedicine);
 
     }
 
     @Test
-    public void getPatientTest(){
+    public void getMedicineByIdTest(){
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
-        String lastName;
-        Patient p;
-        p = persistenceController.getPatientById(18);
-        lastName = p.getLastName();
+        String medicineName;
+        Medicine medicine;
+        medicine = persistenceController.getMedicineById(114);
+        medicineName = medicine.getMedName();
 
-        assertEquals(lastName, "Doe");
-//        assertThat(p, samePropertyValuesAs(expected));
-
+        assertEquals(medicineName, "New Medicine");
 
     }
 }

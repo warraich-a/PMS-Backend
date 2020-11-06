@@ -4,13 +4,20 @@ public class Management {
     private int patientId;
     private int medicineId;
     private int id;
+    private boolean isActive;
     private static int idSeeder = 1;
 
-    public Management(int patientId, int medicineId) {
-        this.id = idSeeder;
-        idSeeder++;
+    public Management(int id, int patientId, int medicineId,  boolean isActive) {
         this.patientId = patientId;
         this.medicineId = medicineId;
+        this.id = id;
+        this.isActive = isActive;
+    }
+    public Management(int patientId, int medicineId,  boolean isActive) {
+        this.patientId = patientId;
+        this.medicineId = medicineId;
+        this.id = id;
+        this.isActive = isActive;
     }
 
     public Management() {
@@ -38,6 +45,14 @@ public class Management {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public static int getIdSeeder() {

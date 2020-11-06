@@ -35,16 +35,7 @@ public class PharmacistResources {
         return Response.ok(entity).build();
     }
 
-    //get
-    @GET //GET at http://localhost:XXXX/pharmacist/medicines
-    @Path("managements")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getManagements(){
-        List<Management> m = fakeData.getManagements();
 
-        GenericEntity<List<Management>> entity = new GenericEntity<>(m) {  };
-        return Response.ok(entity).build();
-    }
 
     //Patients
     //To get all the patients
@@ -88,14 +79,10 @@ public class PharmacistResources {
         PersistenceController persistenceController = new PersistenceController();
 
         Patient p = persistenceController.getPatientById(patientId);
-        List<Patient> list = new ArrayList<>();
-        list.add(p);
-        GenericEntity<List<Patient>> entity = new GenericEntity<>(list){};
-
         if (p == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid student number.").build();
         } else {
-            return Response.ok(entity).build();
+            return Response.ok(p).build();
         }
     }
 
@@ -103,23 +90,30 @@ public class PharmacistResources {
     @DELETE //DELETE at http://localhost:XXXX/pharmacist/3
     @Path("patient/{id}/delete")
     public Response deletePatient(@PathParam("id") int patientId) {
-        fakeData.deletePatient(patientId);
-        // Idempotent method. Always return the same response (even if the resource has already been deleted before).
+        PersistenceController persistenceController = new PersistenceController();
 
-        return Response.noContent().build();
+        if(persistenceController.deletePatient(patientId))
+        {
+            return Response.noContent().build();
+        }
+        else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
     }
 
 
     // to update a patient
     @PUT //PUT at http://localhost:XXXX/users/profile/experience/id
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/patient/{id}")
-    public Response updatePatient(@PathParam("id") int id, Patient p) {
-        // Idempotent method. Always update (even if the resource has already been updated before).
-        if (fakeData.updatePatient(id, p)) {
+    @Path("/patient")
+    public Response updatePatient(Patient p) {
+        PersistenceController persistenceController = new PersistenceController();
+
+        if (persistenceController.updatePatient(p)) {
             return Response.noContent().build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid experience.").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid id.").build();
         }
     }
 
@@ -217,8 +211,9 @@ public class PharmacistResources {
     @Path("medicines/{patientId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicinesByPatientId(@PathParam("patientId") int medID){
+        PersistenceController persistenceController = new PersistenceController();
 
-        List<Medicine> list = fakeData.getMedicinesByPatientId(medID);
+        List<Medicine> list = persistenceController.getMedicineByPatientId(medID);
         GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
 
         if (list == null) {
@@ -233,16 +228,29 @@ public class PharmacistResources {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("patient/medicine")
     public Response addMedicineToPatient(Management m) {
+        PersistenceController persistenceController = new PersistenceController();
 
-
-        if (!fakeData.addMedicineToPatient(m))
+        if (!persistenceController.addMedicineToPatient(m))
         {
-            String entity =  "Something is wrong";
+            String entity =  "Medicine already exist";
             return Response.status(Response.Status.CONFLICT).entity(entity).build();
         } else {
             String url = uriInfo.getAbsolutePath() + "/" + m.getId(); // url of the created student
             URI uri = URI.create(url);
             return Response.created(uri).build();
         }
+    }
+
+    //get
+    @GET //GET at http://localhost:XXXX/pharmacist/medicines
+    @Path("managements")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getManagements(){
+        PersistenceController persistenceController = new PersistenceController();
+
+        List<Management> m = persistenceController.getManagements();
+
+        GenericEntity<List<Management>> entity = new GenericEntity<>(m) {  };
+        return Response.ok(entity).build();
     }
 }
