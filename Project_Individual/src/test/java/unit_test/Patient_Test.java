@@ -3,6 +3,7 @@ package unit_test;
 import fontys.service.PersistenceController;
 import fontys.service.model.Management;
 import fontys.service.model.Patient;
+import fontys.service.model.UserType;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -45,7 +46,7 @@ public class Patient_Test {
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean newPatient;
-        Patient a = new Patient(firstName, lastName, "john@gmai,com", 2000, "Mar",5, "Lungs", "1324", "Strraat", 5, "Eindhoven","5455FD");
+        Patient a = new Patient(firstName, lastName, "john@gmai,com", 2000, "Mar",5, "Lungs", "1324", "Strraat", 5, "Eindhoven","5455FD", UserType.Patient);
         newPatient = persistenceController.addPatient(a);
 //        id = a.getId();
 
@@ -57,7 +58,7 @@ public class Patient_Test {
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean updatedPatient;
-        Patient a = new Patient(18,"John", "Doooooe", "john@gmai,com", 2000, "Mar",5, "Lungs", "1asfd324", "Straat", 5, "Eindhoven","5455FD");
+        Patient a = new Patient(18,"John", "Doooooe", "john@gmai,com", 2000, "Mar",5, "Lungs", "1asfd324", "Straat", 5, "Eindhoven","5455FD", UserType.Patient);
         updatedPatient= persistenceController.updatePatient(a);
 
         assertEquals(isAdded, updatedPatient);
@@ -71,7 +72,14 @@ public class Patient_Test {
         boolean deletePatient;
         deletePatient= persistenceController.deletePatient(25);
 
-        assertEquals(isAdded, deletePatient);
+        if(deletePatient){
+            assertEquals(isAdded, deletePatient);
+        }
+        else {
+            assertEquals(false, deletePatient);
+        }
+
+
 
     }
 
@@ -89,4 +97,6 @@ public class Patient_Test {
 
 
     }
+
+
 }

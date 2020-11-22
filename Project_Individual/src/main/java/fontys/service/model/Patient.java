@@ -43,25 +43,25 @@ public class Patient {
 
 
 
-    //    public Patient(String firstName, String lastName,
-//                   String email, int year, String month,
-//                   int day, String disease, String password,
-//                   String streetName, int houseNr,
-//                   String city, String zipcode, UserType userType) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.year = year;
-//        this.month = month;
-//        this.day = day;
-//        this.disease = disease;
-//        this.password = password;
-//        this.streetName = streetName;
-//        this.houseNr = houseNr;
-//        this.city = city;
-//        this.zipcode = zipcode;
-//        this.userType = userType;
-//    }
+        public Patient(String firstName, String lastName,
+                   String email, int year, String month,
+                   int day, String disease, String password,
+                   String streetName, int houseNr,
+                   String city, String zipcode, UserType userType) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.disease = disease;
+        this.password = password;
+        this.streetName = streetName;
+        this.houseNr = houseNr;
+        this.city = city;
+        this.zipcode = zipcode;
+        this.userType = userType;
+    }
 
 
     public Patient() {

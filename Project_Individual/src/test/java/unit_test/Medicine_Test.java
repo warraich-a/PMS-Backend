@@ -51,15 +51,41 @@ public class Medicine_Test {
 
     }
     @Test
+    public void AddNewMedicineTestException(){
+        medicineName = randomIdentifier();
+
+        PersistenceController persistenceController = new PersistenceController();
+        boolean isAdded = false;
+        boolean newMedicine;
+        Medicine m = new Medicine("Nog nieuwaf", 10, 15);
+        newMedicine = persistenceController.addMedicine(m);
+
+        assertEquals(isAdded, newMedicine);
+
+    }
+
+    @Test
     public void UpdateMedicineTest(){
         medicineName = randomIdentifier();
         PersistenceController persistenceController = new PersistenceController();
         boolean isUpdate = true;
         boolean updateMedicine;
-        Medicine m = new Medicine(117, medicineName, 18, 20);
+        Medicine m = new Medicine(123, medicineName, 18, 20);
         updateMedicine= persistenceController.updateMedicine(m);
 
         assertEquals(isUpdate, updateMedicine);
+
+    }
+    @Test
+    public void UpdateMedicineTestException(){
+        medicineName = randomIdentifier();
+        PersistenceController persistenceController = new PersistenceController();
+        boolean isUpdate = true;
+        boolean updateMedicine;
+        Medicine m = new Medicine(114, medicineName, 18, 20);
+        updateMedicine= persistenceController.updateMedicine(m);
+
+        assertEquals(false, updateMedicine);
 
     }
 
@@ -68,9 +94,14 @@ public class Medicine_Test {
         PersistenceController persistenceController = new PersistenceController();
         boolean isDeleted = true;
         boolean deleteMedicine;
-        deleteMedicine= persistenceController.deleteMedicine(121);
+        deleteMedicine= persistenceController.deleteMedicine(128);
 
-        assertEquals(isDeleted, deleteMedicine);
+        if(deleteMedicine){
+            assertEquals(isDeleted, deleteMedicine);
+        }
+       else{
+            assertEquals(false, deleteMedicine);
+        }
 
     }
 
@@ -80,10 +111,10 @@ public class Medicine_Test {
         boolean isAdded = true;
         String medicineName;
         Medicine medicine;
-        medicine = persistenceController.getMedicineById(114);
+        medicine = persistenceController.getMedicineById(115);
         medicineName = medicine.getMedName();
 
-        assertEquals(medicineName, "New Medicine");
+        assertEquals(medicineName, "Nog nieuwaf");
 
     }
 }

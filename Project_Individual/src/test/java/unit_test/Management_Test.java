@@ -22,20 +22,37 @@ public class Management_Test {
 
     }
 
-//    @Test
-//    public void getMedicineByPatientIdTest(){
-//        PersistenceController persistenceController = new PersistenceController();
-//        Medicine firstMedicine = null;
-//        List<Medicine> foundMedicines;
-//
-//        foundMedicines = persistenceController.getMedicineByPatientId(18);
-//
-//        for(Medicine m: foundMedicines) {
-//            firstMedicine = m;
-//            break;
-//        }
-//
-//        assertEquals(firstMedicine.getMedName(), "New Medicine");
-//
-//    }
+    @Test
+    public void getMedicineByPatientIdTest(){
+        PersistenceController persistenceController = new PersistenceController();
+        Medicine firstMedicine = null;
+        List<Medicine> foundMedicines;
+
+        foundMedicines = persistenceController.getMedicineByPatientId(15);
+
+        for(Medicine m: foundMedicines) {
+            firstMedicine = m;
+            break;
+        }
+
+        assertEquals(firstMedicine.getMedName(), "New Medicine");
+
+    }
+
+    @Test
+    public void getMedicineByPatientIdTestException(){
+        PersistenceController persistenceController = new PersistenceController();
+        Medicine firstMedicine = null;
+        List<Medicine> foundMedicines;
+
+        foundMedicines = persistenceController.getMedicineByPatientId(18);
+
+        for(Medicine m: foundMedicines) {
+            firstMedicine = m;
+            break;
+        }
+
+        assertEquals(firstMedicine.getMedName(), "");
+
+    }
 }
