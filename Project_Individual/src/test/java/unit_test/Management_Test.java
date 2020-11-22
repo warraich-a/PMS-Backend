@@ -15,7 +15,7 @@ public class Management_Test {
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean addedMedicine;
-        Management m =  new Management(20,114, true);
+        Management m =  new Management(20,135, true);
         addedMedicine = persistenceController.addMedicineToPatient(m);
 
         assertEquals(isAdded, addedMedicine);
@@ -28,14 +28,14 @@ public class Management_Test {
         Medicine firstMedicine = null;
         List<Medicine> foundMedicines;
 
-        foundMedicines = persistenceController.getMedicineByPatientId(15);
+        foundMedicines = persistenceController.getMedicineByPatientId(18);
 
         for(Medicine m: foundMedicines) {
             firstMedicine = m;
             break;
         }
 
-        assertEquals(firstMedicine.getMedName(), "New Medicine");
+        assertEquals(firstMedicine.getMedName(), "Nog nieuwaf");
 
     }
 
@@ -45,14 +45,14 @@ public class Management_Test {
         Medicine firstMedicine = null;
         List<Medicine> foundMedicines;
 
-        foundMedicines = persistenceController.getMedicineByPatientId(18);
+        foundMedicines = persistenceController.getMedicineByPatientId(1);
+//
+//        for(Medicine m: foundMedicines) {
+//            firstMedicine = m;
+//            break;
+//        }
 
-        for(Medicine m: foundMedicines) {
-            firstMedicine = m;
-            break;
-        }
-
-        assertEquals(firstMedicine.getMedName(), "");
+        assertEquals(foundMedicines.size(), 0);
 
     }
 }

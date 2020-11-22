@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="unit_test.Management_Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-22T15:38:12" hostname="WARRAICHLAPTOP" time="1.4">
+  <properties/>
+  <testcase name="getMedicineByPatientIdTestException" classname="unit_test.Management_Test" time="1.4"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
