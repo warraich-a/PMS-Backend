@@ -4,6 +4,7 @@ package fontys.service.repository;
 import fontys.service.model.Management;
 import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
+import fontys.service.model.UserType;
 
 import java.sql.*;
 import java.util.*;
@@ -11,62 +12,14 @@ import java.util.Date;
 
 public class JDBCPatientRepository extends JDBCRepository  {
 
-//    public Collection<Medicine> getMedicines() throws databaseException {
-//        Map<String, Medicine> countries = this.getUsedCountries();
-//        List<Student> students = new ArrayList<>();
-//
-//        Connection connection = this.getDatabaseConnection();
-//        String sql = "SELECT * from students";
-//        try {
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                int studentNumber = resultSet.getInt("student_number");
-//                String name = resultSet.getString("full_name");
-//                String countryCode = resultSet.getString("country_code");
-//                Country country = countries.get(countryCode);
-//                Student student = new Student(studentNumber,name, country);
-//                students.add(student);
-//            }
-//            connection.commit();
-//            connection.close();
-//
-//        } catch (SQLException throwable) {
-//            throw new SchoolDatabaseException("Cannot read students from the database.",throwable);
-//        }
-//        return students;
-//    }
-//
-//    private Map<String, Medicine> getUsedCountries() throws databaseException {
-//        Map<String, Medicine> countries = new HashMap<>();
-//        Connection connection = this.getDatabaseConnection();
-//
-//        String sql = "SELECT * FROM medicine WHERE country_code in (select country_code from students)";
-//        try {
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            while (resultSet.next()) {
-//                String name = resultSet.getString("name");
-//                String code = resultSet.getString("country_code");
-//                Country country = new Country(code, name);
-//                countries.put(code, country);
-//            }
-//            connection.commit();
-//            connection.close();
-//
-//        } catch (SQLException throwable) {
-//            throw new SchoolDatabaseException("Cannot read countries from the database.",throwable);
-//        }
-//        return  countries;
-//    }
-
-    public List<Patient> getPatients() throws DatabaseException {
+    public List<Patient> getPatients() throws DatabaseException, SQLException {
         List<Patient> patients = new ArrayList<>();
 
         Connection connection = this.getDatabaseConnection();
-        String sql = "SELECT * FROM patient";
+        String sql = "SELECT * FROM user";
+        Statement statement = connection.createStatement();
+
         try {
-            Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -82,8 +35,19 @@ public class JDBCPatientRepository extends JDBCRepository  {
                 int houseNr = resultSet.getInt("houseNr");
                 String city = resultSet.getString("city");
                 String zipcode = resultSet.getString("zipcode");
+                String userType = resultSet.getString("userType");
 
-                Patient patient = new Patient(id, firstName, lastName, email, year, month, day, disease, password, streetName, houseNr, city, zipcode);
+
+                UserType r = UserType.Pharmacist;
+                if (userType.equals("Pharmacist"))
+                {
+                    r = UserType.Pharmacist;
+                }
+                else if (userType.equals("Patient"))
+                {
+                    r = UserType.Patient;
+                }
+                Patient patient = new Patient(id, firstName, lastName, email, year, month, day, disease, password, streetName, houseNr, city, zipcode, r);
                 patients.add(patient);
             }
             connection.close();
@@ -91,16 +55,19 @@ public class JDBCPatientRepository extends JDBCRepository  {
         } catch (SQLException throwable) {
             throw new DatabaseException("Cannot read students from the database.",throwable);
         }
+        finally {
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        }
         return patients;
     }
-    public Patient getPatientById(int patientId) throws DatabaseException {
-//        JDBCCountriesRepository countriesRepository = new JDBCCountriesRepository();
+    public Patient getPatientById(int patientId) throws DatabaseException, SQLException {
         Patient patient;
         Connection connection = this.getDatabaseConnection();
-        String sql = "SELECT * FROM patient WHERE id = ?";
+        String sql = "SELECT * FROM user WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
 
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, patientId);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()){
@@ -120,16 +87,33 @@ public class JDBCPatientRepository extends JDBCRepository  {
                 int houseNr = resultSet.getInt("houseNr");
                 String city = resultSet.getString("city");
                 String zipcode = resultSet.getString("zipcode");
-                patient = new Patient(id, firstName, lastName, email, year, month, day, disease, password, streetName, houseNr, city, zipcode);
+                String userType = resultSet.getString("userType");
+
+
+                UserType r = UserType.Pharmacist;
+                if (userType.equals("Pharmacist"))
+                {
+                    r = UserType.Pharmacist;
+                }
+                else if (userType.equals("Patient"))
+                {
+                    r = UserType.Patient;
+                }
+                patient = new Patient(id, firstName, lastName, email, year, month, day, disease, password, streetName, houseNr, city, zipcode, r);
             }
+            statement.close();
             connection.close();
             return  patient;
         } catch (SQLException throwable) {
             throw new DatabaseException("Cannot read patient from the database.",throwable);
         }
+        finally {
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        }
 
     }
-    public boolean createPatient(Patient patient) throws DatabaseException {
+    public boolean createPatient(Patient patient) throws DatabaseException, SQLException {
         Connection connection = this.getDatabaseConnection();
 
         Boolean exist;
@@ -138,7 +122,9 @@ public class JDBCPatientRepository extends JDBCRepository  {
         fullName = patient.getFirstName() + patient.getLastName();
 
 
-        String sql = "INSERT INTO patient ( firstName, lastName, email, password, year, month, day, sickness, streetName, houseNr, zipcode, city) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ";
+        String sql = "INSERT INTO user ( firstName, lastName, email, password, year, month, day, sickness, streetName, houseNr, zipcode, city, userType) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
         try {
             for (Patient p : getPatients()) {
                 String exisitingFullName;
@@ -148,7 +134,6 @@ public class JDBCPatientRepository extends JDBCRepository  {
                 }
             }
             if (!exist) {
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, patient.getFirstName());
                 preparedStatement.setString(2, patient.getLastName());
                 preparedStatement.setString(3, patient.getEmail());
@@ -161,39 +146,41 @@ public class JDBCPatientRepository extends JDBCRepository  {
                 preparedStatement.setInt(10,  patient.getHouseNr());
                 preparedStatement.setString(11,  patient.getZipcode());
                 preparedStatement.setString(12,  patient.getDisease());
+                preparedStatement.setString(13, String.valueOf(patient.getUserType()));
+
                 preparedStatement.executeUpdate();
 
-                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, "value");
+
                 connection.setAutoCommit(false);
+
                 connection.commit();
                 connection.close();
+
                 return true;
             } else {
+                preparedStatement.close();
                 connection.close();
-                //throw new DatabaseException("Medicine with the same name already exist.");
                 return false;
             }
+
 
         } catch (SQLException throwable) {
             throw new DatabaseException("Cannot create new patient.", throwable);
         }
+        finally {
+            if (preparedStatement != null) preparedStatement.close();
+            if (connection != null) connection.close();
+        }
 
     }
-    public boolean updatePatient(Patient patient) throws DatabaseException {
+    public boolean updatePatient(Patient patient) throws DatabaseException, SQLException {
         Connection connection = this.getDatabaseConnection();
 
-        Boolean exist;
-        exist = false;
-
-//        String sql = "UPDATE medicine set medName=? where id=?";
-        String sql = "update patient set streetName=?, houseNr=?, city=?, zipcode=?, email=?, password=? where id=?";
-
-//        String sql = "INSERT INTO medicine ( medName, price, sellingPrice) VALUES (?,?,?) ";
+        String sql = "update user set streetName=?, houseNr=?, city=?, zipcode=?, email=?, password=? where id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         try {
             for (Patient p : getPatients()) {
                 if (p.getId() == patient.getId()) {
-                    PreparedStatement preparedStatement = connection.prepareStatement(sql);
                     preparedStatement.setString(1, patient.getStreetName());
                     preparedStatement.setInt(2, patient.getHouseNr());
                     preparedStatement.setString(3, patient.getCity());
@@ -202,40 +189,47 @@ public class JDBCPatientRepository extends JDBCRepository  {
                     preparedStatement.setString(6, patient.getPassword());
                     preparedStatement.setInt(7, patient.getId());
                     preparedStatement.executeUpdate();
+                    preparedStatement.close();
                     connection.close();
                     return true;
                 }
             }
-            return false;
 
         } catch (SQLException throwable) {
-            throw new DatabaseException("Cannot create new student.", throwable);
+            throw new DatabaseException("Cannot update the student.", throwable);
         }
+        finally {
+            preparedStatement.close();
+            connection.close();
+        }
+        return false;
     }
 
-    public boolean deletePatient(int patientid) throws DatabaseException {
+    public boolean deletePatient(int patientid) throws DatabaseException, SQLException {
         Connection connection = this.getDatabaseConnection();
 
-        Boolean exist;
-        exist = false;
-
-        String sql = "DELETE from patient where id=?";
-
+        String sql = "DELETE from user where id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         try {
             for (Patient p : getPatients()) {
                 if (p.getId() == patientid) {
-                    PreparedStatement preparedStatement = connection.prepareStatement(sql);
                     preparedStatement.setInt(1, patientid);
                     preparedStatement.executeUpdate();
+                    preparedStatement.close();
                     connection.close();
                     return true;
                 }
             }
-            return false;
+
 
         } catch (SQLException throwable) {
             throw new DatabaseException("Cannot create new student.", throwable);
         }
+        finally {
+            preparedStatement.close();
+            connection.close();
+        }
+        return false;
     }
 
 }

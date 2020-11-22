@@ -10,6 +10,7 @@ public class Medicine {
     private String medName;
     private double price;
     private double sellingPrice;
+    private boolean isActive;
 
 
     public Medicine(int givenId, String givenName, double givenPrice , double givenSellingPrice)
@@ -25,6 +26,24 @@ public class Medicine {
         this.medName = givenName;
         this.price = givenPrice;
         this.sellingPrice = givenSellingPrice;
+
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public Medicine(int givenId, String givenName, double givenPrice , double givenSellingPrice, boolean isActive)
+    {
+        this.id = givenId;
+        this.medName = givenName;
+        this.price = givenPrice;
+        this.sellingPrice = givenSellingPrice;
+        this.isActive = isActive;
 
     }
 

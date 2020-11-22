@@ -5,14 +5,17 @@ import fontys.service.PersistenceController;
 import fontys.service.model.Management;
 import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
-import fontys.service.model.Pharmacist;
+import fontys.service.model.User;
+import fontys.service.repository.DatabaseException;
 import fontys.service.repository.FakeData;
-import fontys.service.repository.JDBCMedicineRepository;
 
+
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -27,18 +30,24 @@ public class PharmacistResources {
     //to get all the pharmacists
     @GET //GET at http://localhost:XXXX/patients/
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPharmacists(){
+    public Response getPatientById(@QueryParam("email") String email, @QueryParam("password") String password) throws DatabaseException, SQLException {
+        PersistenceController persistenceController = new PersistenceController();
+        Patient user = persistenceController.getUsers(email, password);
+        if(user != null){
+            return Response.ok(user).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid username and password.").build();
+        }
+//        GenericEntity<List<User>> entity = new GenericEntity<>(users) {  };
 
-        List<Pharmacist> pharmacists = fakeData.getPharmacistList();
-
-        GenericEntity<List<Pharmacist>> entity = new GenericEntity<>(pharmacists) {  };
-        return Response.ok(entity).build();
     }
 
 
 
     //Patients
     //To get all the patients
+    @RolesAllowed("Pharmacist")
     @GET //GET at http://localhost:XXXX/patients/
     @Produces(MediaType.APPLICATION_JSON)
     @Path("patients")
@@ -51,10 +60,11 @@ public class PharmacistResources {
     }
 
     //to add a new patient
+    @PermitAll
     @POST //POST at http://localhost:XXXX/patient/
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("patient")
-    public Response addStudent(Patient p) {
+    public Response addPatient(Patient p) {
         PersistenceController persistenceController = new PersistenceController();
 
         if (!persistenceController.addPatient(p)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
@@ -69,6 +79,7 @@ public class PharmacistResources {
         }
     }
     // to search a patient
+    @RolesAllowed({"Pharmacist", "Patient"})
     @GET //GET at http://localhost:XXXX/pharmacist/3
     @Produces(MediaType.APPLICATION_JSON)
     @Path("patient/{id}")
@@ -87,6 +98,7 @@ public class PharmacistResources {
     }
 
     //to delete a patient
+    @RolesAllowed("Pharmacist")
     @DELETE //DELETE at http://localhost:XXXX/pharmacist/3
     @Path("patient/{id}/delete")
     public Response deletePatient(@PathParam("id") int patientId) {
@@ -104,6 +116,7 @@ public class PharmacistResources {
 
 
     // to update a patient
+    @RolesAllowed("Pharmacist")
     @PUT //PUT at http://localhost:XXXX/users/profile/experience/id
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/patient")
@@ -120,6 +133,7 @@ public class PharmacistResources {
     //Medicines
 
     //get
+    @RolesAllowed("Pharmacist")
     @GET //GET at http://localhost:XXXX/pharmacist/medicines
     @Path("medicines")
     @Produces(MediaType.APPLICATION_JSON)
@@ -133,11 +147,13 @@ public class PharmacistResources {
         return Response.ok(entity).build();
     }
     //add
+    @RolesAllowed("Pharmacist")
     @POST //http://localhost:XXXX/pharmacist/medicine
     @Path("medicine")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response AddMedicine(Medicine m) {
         PersistenceController persistenceController = new PersistenceController();
+
 
         if (!persistenceController.addMedicine(m)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
         {
@@ -151,6 +167,7 @@ public class PharmacistResources {
     }
 
     //get a medicine by id
+    @RolesAllowed("Pharmacist")
     @GET //GET at http://localhost:XXXX/pharmacist/medicine/2
     @Path("medicine/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -175,6 +192,7 @@ public class PharmacistResources {
 
     //delete
     //to delete a patient
+    @RolesAllowed("Pharmacist")
     @DELETE //DELETE at http://localhost:XXXX/pharmacist/medicine/2/delete
     @Path("medicine/{id}/delete")
     public Response deleteMedicine(@PathParam("id") int medId) {
@@ -191,6 +209,7 @@ public class PharmacistResources {
     }
 
     // update
+    @RolesAllowed("Pharmacist")
     @PUT //PUT at http://localhost:XXXX/users/profile/experience/id
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("medicine")
@@ -206,7 +225,7 @@ public class PharmacistResources {
         }
     }
 
-
+    @RolesAllowed({"Pharmacist"})
     @GET //GET at http://localhost:XXXX/pharmacist/medicine/2
     @Path("medicines/{patientId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -222,8 +241,27 @@ public class PharmacistResources {
             return Response.ok(entity).build();
         }
     }
+
+    @RolesAllowed({"Patient"})
+    @GET //GET at http://localhost:XXXX/pharmacist/medicine/2
+    @Path("client/medicine/{patientId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMedicinesByPatientIdClient(@PathParam("patientId") int medID){
+        PersistenceController persistenceController = new PersistenceController();
+
+        List<Medicine> list = persistenceController.getMedicineByPatientId(medID);
+        GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
+
+        if (list == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid medicine id.").build();
+        } else {
+            return Response.ok(entity).build();
+        }
+    }
+
     //add medicine to a patient
     //add
+    @RolesAllowed("Pharmacist")
     @POST //http://localhost:XXXX/pharmacist/medicine
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("patient/medicine")
@@ -252,5 +290,23 @@ public class PharmacistResources {
 
         GenericEntity<List<Management>> entity = new GenericEntity<>(m) {  };
         return Response.ok(entity).build();
+    }
+
+    @RolesAllowed("Pharmacist")
+    @PUT //PUT at http://localhost:XXXX/users/profile/experience/id
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("delete/patient/{patientId}/medicine/{medicineId}")
+    public Response deleteMedicinePatient(@PathParam("patientId") int patientId,
+                                          @PathParam("medicineId") int medicineId) throws DatabaseException, SQLException {
+        PersistenceController persistenceController = new PersistenceController();
+
+        if(persistenceController.deleteMedicinePatient(patientId, medicineId))
+        {
+            return Response.noContent().build();
+        }
+        else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
     }
 }

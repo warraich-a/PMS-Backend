@@ -3,16 +3,15 @@ package fontys.service.repository;
 import fontys.service.model.Management;
 import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
-import fontys.service.model.Pharmacist;
+import fontys.service.model.User;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FakeData {
 
     private final List<Patient> patientList = new ArrayList<>();
-    private final List<Pharmacist> pharmacistList = new ArrayList<>();
+    private final List<User> userList = new ArrayList<>();
     private final List<Medicine> medicineList = new ArrayList<>();
     private final List<Management> managements = new ArrayList<>();
     // singleton pattern
@@ -33,13 +32,13 @@ public class FakeData {
 //        patientList.add(c);
 //        patientList.add(d);
 
-        Pharmacist p1 = new Pharmacist(1, "Anas", "Ahmad", "anas@gmail.com" );
-        Pharmacist p2 = new Pharmacist(2, "Shay", "Day", "shay@gmail.com" );
-        Pharmacist p3 = new Pharmacist(3, "Dill", "Jaa", "dill@gmail.com" );
-
-        pharmacistList.add(p1);
-        pharmacistList.add(p2);
-        pharmacistList.add(p3);
+//        Pharmacist p1 = new Pharmacist(1, "Anas", "Ahmad", "anas@gmail.com" );
+//        Pharmacist p2 = new Pharmacist(2, "Shay", "Day", "shay@gmail.com" );
+//        Pharmacist p3 = new Pharmacist(3, "Dill", "Jaa", "dill@gmail.com" );
+//
+//        pharmacistList.add(p1);
+//        pharmacistList.add(p2);
+//        pharmacistList.add(p3);
 
 //        Medicine m1 = new Medicine(1, "abc", 12, 15);
 //        Medicine m2 = new Medicine(2, "efg", 15, 17);
@@ -65,7 +64,7 @@ public class FakeData {
     public List<Patient> getPatientsList() {return patientList;}
 
     //Pharmacist
-    public List<Pharmacist> getPharmacistList(){return pharmacistList;}
+    public List<User> getPharmacistList(){return userList;}
 
     //Medicines
     public List<Medicine> getMedicineList(){return medicineList;}

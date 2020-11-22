@@ -20,8 +20,9 @@ public class Patient {
     private int houseNr;
     private String city;
     private String zipcode;
+    private UserType userType;
 
-    public Patient(int id, String firstName, String lastName, String email, int year, String month, int day, String disease, String password, String streetName, int houseNr, String city, String zipcode) {
+    public Patient(int id, String firstName, String lastName, String email, int year, String month, int day, String disease, String password, String streetName, int houseNr, String city, String zipcode, UserType u) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,22 +36,32 @@ public class Patient {
         this.houseNr = houseNr;
         this.city = city;
         this.zipcode = zipcode;
+        this.userType = u;
+
+
     }
 
-    public Patient(String firstName, String lastName, String email, int year, String month, int day, String disease, String password, String streetName, int houseNr, String city, String zipcode) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.disease = disease;
-        this.password = password;
-        this.streetName = streetName;
-        this.houseNr = houseNr;
-        this.city = city;
-        this.zipcode = zipcode;
-    }
+
+
+    //    public Patient(String firstName, String lastName,
+//                   String email, int year, String month,
+//                   int day, String disease, String password,
+//                   String streetName, int houseNr,
+//                   String city, String zipcode, UserType userType) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.year = year;
+//        this.month = month;
+//        this.day = day;
+//        this.disease = disease;
+//        this.password = password;
+//        this.streetName = streetName;
+//        this.houseNr = houseNr;
+//        this.city = city;
+//        this.zipcode = zipcode;
+//        this.userType = userType;
+//    }
 
 
     public Patient() {
@@ -158,5 +169,13 @@ public class Patient {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }

@@ -3,11 +3,10 @@ package fontys.service;
 import fontys.service.model.Management;
 import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
-import fontys.service.repository.JDBCManagementRepository;
-import fontys.service.repository.JDBCMedicineRepository;
-import fontys.service.repository.JDBCPatientRepository;
-import fontys.service.repository.DatabaseException;
+import fontys.service.model.User;
+import fontys.service.repository.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class PersistenceController {
@@ -16,9 +15,9 @@ public class PersistenceController {
         JDBCPatientRepository jdbcPatientRepository = new JDBCPatientRepository();
 
         try {
-            List<Patient> patients =  jdbcPatientRepository.getPatients();
-            return patients;
-        } catch (DatabaseException e) {
+            return jdbcPatientRepository.getPatients();
+//            return patients;
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -28,9 +27,9 @@ public class PersistenceController {
         JDBCPatientRepository patientRepository = new JDBCPatientRepository();
 
         try {
-            Patient patient = patientRepository.getPatientById(patientId);
-            return  patient;
-        } catch (DatabaseException e) {
+            return patientRepository.getPatientById(patientId);
+//            return  patient;
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -46,9 +45,8 @@ public class PersistenceController {
             {
                 return false;
             }
-//            System.out.println("Created student: " + medicine);
-        } catch (DatabaseException e) {
-            e.printStackTrace();
+        } catch (DatabaseException | SQLException e) {
+            e.getMessage();
             return false;
         }
     }
@@ -63,8 +61,7 @@ public class PersistenceController {
             {
                 return false;
             }
-//            System.out.println("Created student: " + medicine);
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -80,8 +77,7 @@ public class PersistenceController {
             {
                 return false;
             }
-//            System.out.println("Created student: " + medicine);
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -92,9 +88,9 @@ public class PersistenceController {
         JDBCMedicineRepository medicineRepository = new JDBCMedicineRepository();
 
         try {
-            List<Medicine> medicines =  medicineRepository.getMedicines();
-            return medicines;
-        } catch (DatabaseException e) {
+            return  medicineRepository.getMedicines();
+//            return medicines;
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -105,9 +101,9 @@ public class PersistenceController {
         JDBCMedicineRepository medicineRepository = new JDBCMedicineRepository();
 
         try {
-            Medicine medicine = medicineRepository.getMedicine(medicineId);
-            return  medicine;
-        } catch (DatabaseException e) {
+            return  medicineRepository.getMedicine(medicineId);
+//            return  medicine;
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -124,7 +120,7 @@ public class PersistenceController {
             {
                 return false;
             }
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -140,7 +136,7 @@ public class PersistenceController {
             {
                 return false;
             }
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -157,7 +153,7 @@ public class PersistenceController {
             {
                 return false;
             }
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -169,9 +165,9 @@ public class PersistenceController {
         JDBCManagementRepository managementRepository = new JDBCManagementRepository();
 
         try {
-            List<Management> managements = (List<Management>) managementRepository.getManagements();
-            return managements;
-        } catch (DatabaseException e) {
+            return   managementRepository.getManagements();
+//            return managements;
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -188,7 +184,7 @@ public class PersistenceController {
             {
                 return false;
             }
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -198,12 +194,39 @@ public class PersistenceController {
     public List<Medicine> getMedicineByPatientId(int patientId) {
         JDBCManagementRepository managementRepository = new JDBCManagementRepository();
         try {
-            List<Medicine> medicines = (List<Medicine>) managementRepository.getMedicinesByPatientId(patientId);
-            return medicines;
-        } catch (DatabaseException e) {
+            return  managementRepository.getMedicinesByPatientId(patientId);
+        } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    public Patient getUsers(String email, String password) throws DatabaseException, SQLException {
+        JDBCUserRepository pharmacistRepository = new JDBCUserRepository();
+        Patient u = pharmacistRepository.getUser(email, password);
+        if(u != null){
+            return  u;
+        }
+
+
+        return null;
+    }
+
+
+    //delete medicine of a patient
+    public boolean deleteMedicinePatient(int patientId, int medicineId) throws DatabaseException, SQLException {
+        JDBCManagementRepository managementRepository = new JDBCManagementRepository();
+        try {
+            if(managementRepository.deleteMedicinePatient(patientId,medicineId)) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } catch (DatabaseException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
