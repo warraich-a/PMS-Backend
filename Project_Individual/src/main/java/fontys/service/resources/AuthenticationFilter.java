@@ -40,6 +40,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         final String AUTHORIZATION_PROPERTY = "Authorization";
         final String AUTHENTICATION_SCHEME = "Basic";
         //Get request headers
+        // with each request it will check the headers, if header exist it will go futhure otherwise will give an error
         final MultivaluedMap<String, String> headers = requestContext.getHeaders(); //Fetch authorization header
         final List<String> authorization = headers.get(AUTHORIZATION_PROPERTY); //If no authorization information present: abort with UNAUTHORIZED and stop
         if (authorization == null || authorization.isEmpty())

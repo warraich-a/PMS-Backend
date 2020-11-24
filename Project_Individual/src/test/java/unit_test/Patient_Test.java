@@ -37,20 +37,57 @@ public class Patient_Test {
     }
     private String firstName;
     private String lastName;
+    private String email;
+    private String streetName;
     private int id;
 
     @Test
     public void AddNewPatientTest(){
         firstName = randomIdentifier();
         lastName = randomIdentifier();
+        streetName = randomIdentifier();
+        email = firstName+"@gmail.com";
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean newPatient;
-        Patient a = new Patient(firstName, lastName, "john@gmai,com", 2000, "Mar",5, "Lungs", "1324", "Strraat", 5, "Eindhoven","5455FD", UserType.Patient);
+        Patient a = new Patient(firstName, lastName, email, 2000, "Mar",5, "Lungs", "1324", streetName, 5, "Eindhoven","5455FD", UserType.Patient);
         newPatient = persistenceController.addPatient(a);
 //        id = a.getId();
 
         assertEquals(isAdded, newPatient);
+
+    }
+    @Test
+    public void AddNewPatientTest_ExceptionEmail(){
+        firstName = randomIdentifier();
+        lastName = randomIdentifier();
+        streetName = randomIdentifier();
+        email = firstName+"@gmail.com";
+        PersistenceController persistenceController = new PersistenceController();
+        boolean isAdded = true;
+        boolean newPatient;
+        Patient a = new Patient(firstName, lastName, "john@gmail.com", 2000, "Mar",5, "Lungs", "1324", streetName, 5, "Eindhoven","5455FD", UserType.Patient);
+        newPatient = persistenceController.addPatient(a);
+//        id = a.getId();
+
+        assertEquals(isAdded, !newPatient);
+
+    }
+
+    @Test
+    public void AddNewPatientTest_ExceptionAdress(){
+        firstName = randomIdentifier();
+        lastName = randomIdentifier();
+        streetName = randomIdentifier();
+        email = firstName+"@gmail.com";
+        PersistenceController persistenceController = new PersistenceController();
+        boolean isAdded = true;
+        boolean newPatient;
+        Patient a = new Patient("John", "Doe", email, 2000, "Mar",5, "Lungs", "1324", "Straat", 5, "Eindhoven","5455FD", UserType.Patient);
+        newPatient = persistenceController.addPatient(a);
+//        id = a.getId();
+
+        assertEquals(isAdded, !newPatient);
 
     }
     @Test

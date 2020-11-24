@@ -129,7 +129,12 @@ public class JDBCPatientRepository extends JDBCRepository  {
             for (Patient p : getPatients()) {
                 String exisitingFullName;
                 exisitingFullName = p.getFirstName() + p.getLastName();
-                if (exisitingFullName.equals(fullName) && p.getStreetName().equals(patient.getStreetName()) && p.getHouseNr() == patient.getHouseNr()) {
+                if (exisitingFullName.equals(fullName)
+                        && p.getStreetName().equals(patient.getStreetName())
+                        && p.getHouseNr() == patient.getHouseNr()) {
+                    exist = true;
+                }
+                else if(p.getEmail().equals(patient.getEmail())){
                     exist = true;
                 }
             }

@@ -17,6 +17,7 @@ import javax.ws.rs.core.*;
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.StringTokenizer;
 
 
 @Path("pharmacist")
@@ -43,7 +44,27 @@ public class PharmacistResources {
 
     }
 
+    @POST //POST at http://localhost:XXXX/users/
+    @Path("login")
+    @PermitAll
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(String body) throws DatabaseException, SQLException {
 
+        final StringTokenizer tokenizer = new StringTokenizer(body, ":");
+        final String email = tokenizer.nextToken();
+        final String password = tokenizer.nextToken();
+
+        PersistenceController persistenceController = new PersistenceController();
+        Patient user = persistenceController.getUsers(email, password);
+        if(user != null){
+            return Response.ok(user).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid username and password.").build();
+        }
+//        GenericEntity<List<User>> entity = new GenericEntity<>(users) {  };
+
+    }
 
     //Patients
     //To get all the patients
@@ -75,7 +96,7 @@ public class PharmacistResources {
         } else {
             String url = uriInfo.getAbsolutePath() + "/" + p.getId(); // url of the created student
             URI uri = URI.create(url);
-            return Response.created(uri).build();
+            return Response.ok(p).build();
         }
     }
     // to search a patient

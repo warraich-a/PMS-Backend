@@ -18,7 +18,7 @@ public class Management_Test {
         Management m =  new Management(20,135, true);
         addedMedicine = persistenceController.addMedicineToPatient(m);
 
-        assertEquals(isAdded, addedMedicine);
+        assertEquals(isAdded, !addedMedicine);
 
     }
 
