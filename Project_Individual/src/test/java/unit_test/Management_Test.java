@@ -35,7 +35,7 @@ public class Management_Test {
             break;
         }
 
-        assertEquals(firstMedicine.getMedName(), "Nog nieuwaf");
+        assertEquals(firstMedicine.getMedName(), "MXNENQ");
 
     }
 

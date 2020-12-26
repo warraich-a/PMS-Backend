@@ -82,7 +82,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
                 return;
             }
         }
-
     }
 
     private boolean isValidUser(String email, String password){
@@ -90,7 +89,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         Patient user = null;
         try {
             user = persistenceController.getUsers(email, password);
-            //isUserAllowed(Collections.singleton(user.getUserType().toString()));
         } catch (DatabaseException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {

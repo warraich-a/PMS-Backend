@@ -1,7 +1,7 @@
 package fontys.service.model;
-
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @XmlRootElement
 public class Medicine {
@@ -11,6 +11,9 @@ public class Medicine {
     private double price;
     private double sellingPrice;
     private boolean isActive;
+    private String startDate;
+    private String endDate;
+    private int managementId;
 
 
     public Medicine(int givenId, String givenName, double givenPrice , double givenSellingPrice)
@@ -21,6 +24,15 @@ public class Medicine {
         this.sellingPrice = givenSellingPrice;
 
     }
+
+    public int getManagementId() {
+        return managementId;
+    }
+
+    public void setManagementId(int managementId) {
+        this.managementId = managementId;
+    }
+
     public Medicine(String givenName, double givenPrice , double givenSellingPrice)
     {
         this.medName = givenName;
@@ -84,4 +96,19 @@ public class Medicine {
     }
 
 
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 }

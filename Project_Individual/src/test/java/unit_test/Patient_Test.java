@@ -6,6 +6,9 @@ import fontys.service.model.Patient;
 import fontys.service.model.UserType;
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,6 +43,9 @@ public class Patient_Test {
     private String email;
     private String streetName;
     private int id;
+    private String dateOfBirth;
+    DateFormat formatter;
+    Date startDate;
 
     @Test
     public void AddNewPatientTest(){
@@ -47,10 +53,15 @@ public class Patient_Test {
         lastName = randomIdentifier();
         streetName = randomIdentifier();
         email = firstName+"@gmail.com";
+        dateOfBirth = "1997-12-01";
+//        formatter = new SimpleDateFormat("yyyy-mm-dd");
+//
+//        startDate = formatter.parse(m.getStartDate());
+
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean newPatient;
-        Patient a = new Patient(firstName, lastName, email, 2000, "Mar",5, "Lungs", "1324", streetName, 5, "Eindhoven","5455FD", UserType.Patient);
+        Patient a = new Patient(firstName, lastName, email, dateOfBirth, "1324", streetName, 5, "Eindhoven","5455FD", UserType.Patient);
         newPatient = persistenceController.addPatient(a);
 //        id = a.getId();
 
@@ -63,10 +74,11 @@ public class Patient_Test {
         lastName = randomIdentifier();
         streetName = randomIdentifier();
         email = firstName+"@gmail.com";
+        dateOfBirth = "1997-12-01";
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean newPatient;
-        Patient a = new Patient(firstName, lastName, "john@gmail.com", 2000, "Mar",5, "Lungs", "1324", streetName, 5, "Eindhoven","5455FD", UserType.Patient);
+        Patient a = new Patient(firstName, lastName, "john@gmail.com", dateOfBirth,  "1324", streetName, 5, "Eindhoven","5455FD", UserType.Patient);
         newPatient = persistenceController.addPatient(a);
 //        id = a.getId();
 
@@ -80,10 +92,11 @@ public class Patient_Test {
         lastName = randomIdentifier();
         streetName = randomIdentifier();
         email = firstName+"@gmail.com";
+        dateOfBirth = "1997-12-01";
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean newPatient;
-        Patient a = new Patient("John", "Doe", email, 2000, "Mar",5, "Lungs", "1324", "Straat", 5, "Eindhoven","5455FD", UserType.Patient);
+        Patient a = new Patient("John", "Doe", email, dateOfBirth, "1324", "Straat", 5, "Eindhoven","5455FD", UserType.Patient);
         newPatient = persistenceController.addPatient(a);
 //        id = a.getId();
 
@@ -95,7 +108,8 @@ public class Patient_Test {
         PersistenceController persistenceController = new PersistenceController();
         boolean isAdded = true;
         boolean updatedPatient;
-        Patient a = new Patient(18,"John", "Doooooe", "john@gmai,com", 2000, "Mar",5, "Lungs", "1asfd324", "Straat", 5, "Eindhoven","5455FD", UserType.Patient);
+        dateOfBirth = "1997-12-01";
+        Patient a = new Patient(18,"John", "Doooooe", "john@gmai,com",dateOfBirth, "1asfd324", "Straat", 5, "Eindhoven","5455FD", UserType.Patient);
         updatedPatient= persistenceController.updatePatient(a);
 
         assertEquals(isAdded, updatedPatient);

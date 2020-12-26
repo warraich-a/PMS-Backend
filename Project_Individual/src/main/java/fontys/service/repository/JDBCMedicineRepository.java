@@ -120,8 +120,6 @@ public class JDBCMedicineRepository extends JDBCRepository  {
 
     public boolean deleteMedicine(int medicinId) throws DatabaseException, SQLException {
         Connection connection = this.getDatabaseConnection();
-
-
         String sql = "DELETE from medicine where id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 

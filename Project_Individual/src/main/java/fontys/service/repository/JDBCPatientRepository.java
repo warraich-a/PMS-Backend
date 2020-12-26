@@ -1,14 +1,11 @@
 package fontys.service.repository;
 
-
-import fontys.service.model.Management;
-import fontys.service.model.Medicine;
+import fontys.service.MyWebSocketApp;
 import fontys.service.model.Patient;
 import fontys.service.model.UserType;
 
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
 
 public class JDBCPatientRepository extends JDBCRepository  {
 
@@ -27,10 +24,11 @@ public class JDBCPatientRepository extends JDBCRepository  {
                 String lastName = resultSet.getString("lastName");
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
-                int year = resultSet.getInt("year");
-                String month = resultSet.getString("month");
-                int day = resultSet.getInt("day");
-                String disease = resultSet.getString("sickness");
+                String dateOfBirth = resultSet.getString("dateOfBirth");
+//                int year = resultSet.getInt("year");
+//                String month = resultSet.getString("month");
+//                int day = resultSet.getInt("day");
+//                String disease = resultSet.getString("sickness");
                 String streetName = resultSet.getString("streetName");
                 int houseNr = resultSet.getInt("houseNr");
                 String city = resultSet.getString("city");
@@ -47,7 +45,7 @@ public class JDBCPatientRepository extends JDBCRepository  {
                 {
                     r = UserType.Patient;
                 }
-                Patient patient = new Patient(id, firstName, lastName, email, year, month, day, disease, password, streetName, houseNr, city, zipcode, r);
+                Patient patient = new Patient(id, firstName, lastName, email, dateOfBirth, password, streetName, houseNr, city, zipcode, r);
                 patients.add(patient);
             }
             connection.close();
@@ -79,10 +77,12 @@ public class JDBCPatientRepository extends JDBCRepository  {
                 String lastName = resultSet.getString("lastName");
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
-                int year = resultSet.getInt("year");
-                String month = resultSet.getString("month");
-                int day = resultSet.getInt("day");
-                String disease = resultSet.getString("sickness");
+                String dateOfBirth = resultSet.getString("dateOfBirth");
+
+//                int year = resultSet.getInt("year");
+//                String month = resultSet.getString("month");
+//                int day = resultSet.getInt("day");
+//                String disease = resultSet.getString("sickness");
                 String streetName = resultSet.getString("streetName");
                 int houseNr = resultSet.getInt("houseNr");
                 String city = resultSet.getString("city");
@@ -99,7 +99,7 @@ public class JDBCPatientRepository extends JDBCRepository  {
                 {
                     r = UserType.Patient;
                 }
-                patient = new Patient(id, firstName, lastName, email, year, month, day, disease, password, streetName, houseNr, city, zipcode, r);
+                patient = new Patient(id, firstName, lastName, email, dateOfBirth, password, streetName, houseNr, city, zipcode, r);
             }
             statement.close();
             connection.close();
@@ -115,14 +115,14 @@ public class JDBCPatientRepository extends JDBCRepository  {
     }
     public boolean createPatient(Patient patient) throws DatabaseException, SQLException {
         Connection connection = this.getDatabaseConnection();
-
+        MyWebSocketApp myWebSocketApp = new MyWebSocketApp();
         Boolean exist;
         exist = false;
         String fullName;
         fullName = patient.getFirstName() + patient.getLastName();
 
 
-        String sql = "INSERT INTO user ( firstName, lastName, email, password, year, month, day, sickness, streetName, houseNr, zipcode, city, userType) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+        String sql = "INSERT INTO user ( firstName, lastName, email, password, dateOfBirth, streetName, houseNr, zipcode, city, userType) VALUES (?,?,?,?,?,?,?,?,?,?) ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         try {
@@ -143,41 +143,40 @@ public class JDBCPatientRepository extends JDBCRepository  {
                 preparedStatement.setString(2, patient.getLastName());
                 preparedStatement.setString(3, patient.getEmail());
                 preparedStatement.setString(4, patient.getPassword());
-                preparedStatement.setInt(5,  patient.getYear());
-                preparedStatement.setString(6,  patient.getMonth());
-                preparedStatement.setInt(7,  patient.getDay());
-                preparedStatement.setString(8,  patient.getDisease());
-                preparedStatement.setString(9,  patient.getStreetName());
-                preparedStatement.setInt(10,  patient.getHouseNr());
-                preparedStatement.setString(11,  patient.getZipcode());
-                preparedStatement.setString(12,  patient.getDisease());
-                preparedStatement.setString(13, String.valueOf(patient.getUserType()));
+                preparedStatement.setString(5, patient.getDateOfBirth());
+
+//                preparedStatement.setString(6,  patient.getDisease());
+                preparedStatement.setString(6,  patient.getStreetName());
+                preparedStatement.setInt(7,  patient.getHouseNr());
+                preparedStatement.setString(8,  patient.getZipcode());
+                preparedStatement.setString(9,  patient.getCity());
+                preparedStatement.setString(10, String.valueOf(patient.getUserType()));
 
                 preparedStatement.executeUpdate();
-
+//                myWebSocketApp.AddOnConnect(patient.getWebSocket(), patient.getId());
 
                 connection.setAutoCommit(false);
 
                 connection.commit();
                 connection.close();
-
                 return true;
             } else {
                 preparedStatement.close();
                 connection.close();
                 return false;
             }
-
-
         } catch (SQLException throwable) {
             throw new DatabaseException("Cannot create new patient.", throwable);
         }
         finally {
+
             if (preparedStatement != null) preparedStatement.close();
             if (connection != null) connection.close();
         }
 
     }
+
+//    update patient
     public boolean updatePatient(Patient patient) throws DatabaseException, SQLException {
         Connection connection = this.getDatabaseConnection();
 
@@ -210,6 +209,7 @@ public class JDBCPatientRepository extends JDBCRepository  {
         return false;
     }
 
+//    delete a patient
     public boolean deletePatient(int patientid) throws DatabaseException, SQLException {
         Connection connection = this.getDatabaseConnection();
 
@@ -225,8 +225,6 @@ public class JDBCPatientRepository extends JDBCRepository  {
                     return true;
                 }
             }
-
-
         } catch (SQLException throwable) {
             throw new DatabaseException("Cannot create new student.", throwable);
         }

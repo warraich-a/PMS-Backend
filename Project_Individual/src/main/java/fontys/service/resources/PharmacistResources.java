@@ -5,27 +5,25 @@ import fontys.service.PersistenceController;
 import fontys.service.model.Management;
 import fontys.service.model.Medicine;
 import fontys.service.model.Patient;
-import fontys.service.model.User;
 import fontys.service.repository.DatabaseException;
-import fontys.service.repository.FakeData;
 
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
-
+import org.glassfish.grizzly.http.server.Request;
 
 @Path("pharmacist")
 public class PharmacistResources {
-    private final FakeData fakeData = FakeData.getInstance();
-
     @Context
     private UriInfo uriInfo;
+
 
 
     //to get all the pharmacists
@@ -40,15 +38,14 @@ public class PharmacistResources {
         else {
             return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid username and password.").build();
         }
-//        GenericEntity<List<User>> entity = new GenericEntity<>(users) {  };
-
     }
+
 
     @POST //POST at http://localhost:XXXX/users/
     @Path("login")
     @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(String body) throws DatabaseException, SQLException {
+    public Response login(@Context Request request, String body) throws DatabaseException, SQLException {
 
         final StringTokenizer tokenizer = new StringTokenizer(body, ":");
         final String email = tokenizer.nextToken();
@@ -57,13 +54,15 @@ public class PharmacistResources {
         PersistenceController persistenceController = new PersistenceController();
         Patient user = persistenceController.getUsers(email, password);
         if(user != null){
+            request.getSession(true);
+            request.setAttribute("email", email);
+            System.out.println("session is below");
+            System.out.println(request.getAttribute("email"));
             return Response.ok(user).build();
         }
         else {
             return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid username and password.").build();
         }
-//        GenericEntity<List<User>> entity = new GenericEntity<>(users) {  };
-
     }
 
     //Patients
@@ -91,7 +90,6 @@ public class PharmacistResources {
         if (!persistenceController.addPatient(p)) // In this addPatient it adds the new object in this if statement and return true or false since that method is boolean
         {
             String entity =  "Patient with the given name " + p.getFirstName()+" "+p.getLastName() + " already exists.";
-            // throw new Exception(Response.Status.CONFLICT, "This topic already exists");
             return Response.status(Response.Status.CONFLICT).entity(entity).build();
         } else {
             String url = uriInfo.getAbsolutePath() + "/" + p.getId(); // url of the created student
@@ -105,8 +103,6 @@ public class PharmacistResources {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("patient/{id}")
     public Response getPatientById(@PathParam("id") int patientId) {
-        //fakeData.getPatientById(patientId);x
-//        Patient p = fakeData.getPatientById(patientId);//studentsRepository.get(stNr);
 
         PersistenceController persistenceController = new PersistenceController();
 
@@ -160,8 +156,6 @@ public class PharmacistResources {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMedicines(){
         PersistenceController persistenceController = new PersistenceController();
-//        List<Medicine> medicines = fakedata.getMedicines();
-
         List<Medicine> m = persistenceController.getMedicines();
 
         GenericEntity<List<Medicine>> entity = new GenericEntity<>(m) {  };
@@ -196,10 +190,6 @@ public class PharmacistResources {
         PersistenceController persistenceController = new PersistenceController();
 
         Medicine p = persistenceController.getMedicineById(medID);
-
-//        List<Medicine> list = new ArrayList<>();
-//        list.add(p);
-//        GenericEntity<List<Medicine>> entity = new GenericEntity<>(list){};
 
         if (p == null) {
             return Response.status(Response.Status.BAD_REQUEST).entity("Medicine with number " + medID + " cannot be found").build();

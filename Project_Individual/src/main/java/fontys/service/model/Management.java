@@ -1,7 +1,7 @@
 package fontys.service.model;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Management {
@@ -11,14 +11,20 @@ public class Management {
     private boolean isActive;
     private Medicine medicine;
     private static int idSeeder = 1;
+    private String startDate;
+    private String endDate;
 
     List<Medicine> medicines = new ArrayList<>();
 
-    public Management(int id, int patientId, int medicineId,  boolean isActive) {
+
+
+    public Management(int id, int patientId, int medicineId, boolean isActive, String startDate, String endDate) {
         this.patientId = patientId;
         this.medicineId = medicineId;
         this.id = id;
         this.isActive = isActive;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
     public Management(int patientId, int medicineId,  boolean isActive) {
         this.patientId = patientId;
@@ -31,9 +37,13 @@ public class Management {
     }
 
 
-    public void ListOfMedicinesByPatient(Medicine medicine, boolean isActive) {
+    public void ListOfMedicinesByPatient(int id, Medicine medicine, boolean isActive, String startDate, String endDate) {
+        medicine.setManagementId(id);
         medicine.setActive(isActive);
+        medicine.setStartDate(startDate);
+        medicine.setEndDate(endDate);
         medicines.add(medicine);
+
     }
 
     public List<Medicine> getMedicines() {
@@ -82,5 +92,28 @@ public class Management {
 
     public static void setIdSeeder(int idSeeder) {
         Management.idSeeder = idSeeder;
+    }
+    public Medicine getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(Medicine medicine) {
+        this.medicine = medicine;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 }

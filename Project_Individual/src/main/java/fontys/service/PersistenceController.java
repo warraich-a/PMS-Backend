@@ -7,6 +7,7 @@ import fontys.service.model.User;
 import fontys.service.repository.*;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 public class PersistenceController {
@@ -16,7 +17,6 @@ public class PersistenceController {
 
         try {
             return jdbcPatientRepository.getPatients();
-//            return patients;
         } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
@@ -28,7 +28,6 @@ public class PersistenceController {
 
         try {
             return patientRepository.getPatientById(patientId);
-//            return  patient;
         } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
@@ -89,7 +88,6 @@ public class PersistenceController {
 
         try {
             return  medicineRepository.getMedicines();
-//            return medicines;
         } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
@@ -102,7 +100,6 @@ public class PersistenceController {
 
         try {
             return  medicineRepository.getMedicine(medicineId);
-//            return  medicine;
         } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
@@ -166,7 +163,6 @@ public class PersistenceController {
 
         try {
             return   managementRepository.getManagements();
-//            return managements;
         } catch (DatabaseException | SQLException e) {
             e.printStackTrace();
         }
@@ -178,13 +174,14 @@ public class PersistenceController {
         JDBCManagementRepository managementRepository = new JDBCManagementRepository();
         try {
             if(managementRepository.addMedicineToPatient(management)) {
+
                 return true;
             }
             else
             {
                 return false;
             }
-        } catch (DatabaseException | SQLException e) {
+        } catch (DatabaseException | SQLException | ParseException e) {
             e.printStackTrace();
             return false;
         }
@@ -225,6 +222,24 @@ public class PersistenceController {
                 return false;
             }
         } catch (DatabaseException | SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //add medicine
+    public boolean setNotification(int patientId, String content) {
+        JDBCManagementRepository managementRepository = new JDBCManagementRepository();
+        try {
+            if(managementRepository.setNotification(patientId, content)) {
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } catch (DatabaseException | SQLException | ParseException e) {
             e.printStackTrace();
             return false;
         }
