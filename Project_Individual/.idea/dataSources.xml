@@ -7,5 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://studmysql01.fhict.local:3306/dbi435688</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="jdbc:h2:mem:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false" uuid="61d02015-5183-4f90-b46e-2c35e029664e">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:mem:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false</jdbc-url>
+    </data-source>
   </component>
 </project>

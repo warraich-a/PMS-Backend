@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="service.repository.UserRepositoryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-12-28T23:45:28" hostname="WARRAICHLAPTOP" time="0.009">
+  <properties/>
+  <testcase name="getUserTest()" classname="service.repository.UserRepositoryTest" time="0.009"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
