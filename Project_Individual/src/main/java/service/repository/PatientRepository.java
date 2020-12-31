@@ -114,6 +114,7 @@ public class PatientRepository extends JDBCRepository {
         }
 
     }
+
     public boolean createPatient(User user) throws DatabaseException, SQLException, URISyntaxException {
         Connection connection = jdbcRepository.getDatabaseConnection();
         MyWebSocketApp myWebSocketApp = new MyWebSocketApp();

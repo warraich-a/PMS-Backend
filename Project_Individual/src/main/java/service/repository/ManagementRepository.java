@@ -1,5 +1,6 @@
 package service.repository;
 
+import service.MyWebSocketApp;
 import service.controller.MedicineController;
 import service.controller.UserController;
 import service.model.Management;
@@ -20,8 +21,15 @@ public class ManagementRepository extends JDBCRepository {
     UserController userController = new UserController();
     MedicineController medicineController = new MedicineController();
 
+
     List<User> users = userController.getPatients();
     List<Medicine> medicines = medicineController.getMedicines();
+
+    JDBCRepository jdbcRepository;
+
+    public ManagementRepository() {
+        this.jdbcRepository = new JDBCRepository();
+    }
 
     public boolean addMedicineToPatient(Management m) throws DatabaseException, SQLException, ParseException, URISyntaxException {
 
@@ -65,6 +73,7 @@ public class ManagementRepository extends JDBCRepository {
                     connection.commit();
                     preparedStatement.close();
                     connection.close();
+
                     return true;
 
             } catch (SQLException throwable) {
@@ -96,7 +105,6 @@ public class ManagementRepository extends JDBCRepository {
                 if(affected <= 0) {
                     return false;
                 }
-                preparedStatement.executeUpdate();
                 connection.setAutoCommit(false);
                 connection.commit();
                 preparedStatement.close();
@@ -274,5 +282,6 @@ public class ManagementRepository extends JDBCRepository {
         }
         return false;
     }
+
 
 }

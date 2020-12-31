@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.repository.ManagementRepositoryTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-12-28T23:45:28" hostname="WARRAICHLAPTOP" time="0.1">
+<testsuite name="service.repository.ManagementRepositoryTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-12-31T14:25:40" hostname="WARRAICHLAPTOP" time="1.486">
   <properties/>
-  <testcase name="setNotificationTest()" classname="service.repository.ManagementRepositoryTest" time="0.053"/>
-  <testcase name="getNotificationTest()" classname="service.repository.ManagementRepositoryTest" time="0.015"/>
-  <testcase name="getManagementsTest()" classname="service.repository.ManagementRepositoryTest" time="0.016"/>
-  <testcase name="deleteMedicinePatientTest()" classname="service.repository.ManagementRepositoryTest" time="0.014"/>
+  <testcase name="setNotificationTest()" classname="service.repository.ManagementRepositoryTest" time="1.286"/>
+  <testcase name="getNotificationTest()" classname="service.repository.ManagementRepositoryTest" time="0.061"/>
+  <testcase name="getManagementsTest()" classname="service.repository.ManagementRepositoryTest" time="0.082"/>
+  <testcase name="deleteMedicinePatientTest()" classname="service.repository.ManagementRepositoryTest" time="0.052"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:18)
-	at service.repository.ManagementRepository.<init>(ManagementRepository.java:23)
+	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -148,7 +148,7 @@ SELECT * FROM medicine [42102-176]
 	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:75)
 	at service.repository.MedicineRepository.getMedicines(MedicineRepository.java:22)
 	at service.controller.MedicineController.getMedicines(MedicineController.java:20)
-	at service.repository.ManagementRepository.<init>(ManagementRepository.java:24)
+	at service.repository.ManagementRepository.<init>(ManagementRepository.java:26)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -245,8 +245,8 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:18)
-	at service.repository.ManagementRepository.<init>(ManagementRepository.java:23)
+	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -385,7 +385,7 @@ SELECT * FROM medicine [42102-176]
 	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:75)
 	at service.repository.MedicineRepository.getMedicines(MedicineRepository.java:22)
 	at service.controller.MedicineController.getMedicines(MedicineController.java:20)
-	at service.repository.ManagementRepository.<init>(ManagementRepository.java:24)
+	at service.repository.ManagementRepository.<init>(ManagementRepository.java:26)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -482,8 +482,8 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:18)
-	at service.repository.ManagementRepository.<init>(ManagementRepository.java:23)
+	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -622,7 +622,7 @@ SELECT * FROM medicine [42102-176]
 	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:75)
 	at service.repository.MedicineRepository.getMedicines(MedicineRepository.java:22)
 	at service.controller.MedicineController.getMedicines(MedicineController.java:20)
-	at service.repository.ManagementRepository.<init>(ManagementRepository.java:24)
+	at service.repository.ManagementRepository.<init>(ManagementRepository.java:26)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -719,8 +719,8 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:18)
-	at service.repository.ManagementRepository.<init>(ManagementRepository.java:23)
+	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
@@ -859,7 +859,7 @@ SELECT * FROM medicine [42102-176]
 	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:75)
 	at service.repository.MedicineRepository.getMedicines(MedicineRepository.java:22)
 	at service.controller.MedicineController.getMedicines(MedicineController.java:20)
-	at service.repository.ManagementRepository.<init>(ManagementRepository.java:24)
+	at service.repository.ManagementRepository.<init>(ManagementRepository.java:26)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)

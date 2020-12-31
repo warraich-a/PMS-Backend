@@ -6,17 +6,28 @@ import service.model.Notification;
 import service.model.User;
 import service.repository.DatabaseException;
 import service.repository.ManagementRepository;
+import service.repository.PatientRepository;
 import service.repository.UserRepository;
 
 import java.net.URISyntaxException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
 public class ManagementController {
     ManagementRepository managementRepository = new ManagementRepository();
-    UserRepository pharmacistRepository = new UserRepository();
+//    PatientRepository patientRepository = new PatientRepository();
 
+    boolean isAdded = false;
+    public boolean isAdded() {
+        return isAdded;
+    }
+
+    public void setAdded(boolean added) {
+        isAdded = added;
+    }
 
     //add medicine
     public List<Management> getManagements() {
@@ -35,11 +46,12 @@ public class ManagementController {
 //        JDBCManagementRepository managementRepository = new JDBCManagementRepository();
         try {
             if(managementRepository.addMedicineToPatient(management)) {
-
+                setAdded(true);
                 return true;
             }
             else
             {
+                setAdded(false);
                 return false;
             }
         } catch (DatabaseException | SQLException | ParseException | URISyntaxException e) {
@@ -55,14 +67,6 @@ public class ManagementController {
             return  managementRepository.getMedicinesByPatientId(patientId);
         } catch (DatabaseException | SQLException | URISyntaxException e) {
             e.printStackTrace();
-        }
-        return null;
-    }
-
-    public User getUsers(String email, String password) throws DatabaseException, SQLException, URISyntaxException {
-        User u = pharmacistRepository.getUser(email, password);
-        if(u != null){
-            return  u;
         }
         return null;
     }
@@ -115,4 +119,6 @@ public class ManagementController {
         }
         return null;
     }
+    //To encrypt the password
+
 }

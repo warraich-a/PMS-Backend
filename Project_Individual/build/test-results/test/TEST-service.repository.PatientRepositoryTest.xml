@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.repository.PatientRepositoryTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-12-28T23:45:28" hostname="WARRAICHLAPTOP" time="0.06">
+<testsuite name="service.repository.PatientRepositoryTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-12-31T14:25:42" hostname="WARRAICHLAPTOP" time="0.176">
   <properties/>
-  <testcase name="getPatients()" classname="service.repository.PatientRepositoryTest" time="0.008"/>
-  <testcase name="updatePatientTest()" classname="service.repository.PatientRepositoryTest" time="0.011"/>
-  <testcase name="deletePatient_doesNotExist_returnsFalse()" classname="service.repository.PatientRepositoryTest" time="0.008"/>
-  <testcase name="createPatient_alreadyExists_throwsException()" classname="service.repository.PatientRepositoryTest" time="0.014"/>
-  <testcase name="deletePatientTest()" classname="service.repository.PatientRepositoryTest" time="0.01"/>
-  <testcase name="getPatientByIdTest()" classname="service.repository.PatientRepositoryTest" time="0.008"/>
+  <testcase name="getPatients()" classname="service.repository.PatientRepositoryTest" time="0.019"/>
+  <testcase name="updatePatientTest()" classname="service.repository.PatientRepositoryTest" time="0.06"/>
+  <testcase name="deletePatient_doesNotExist_returnsFalse()" classname="service.repository.PatientRepositoryTest" time="0.016"/>
+  <testcase name="createPatient_alreadyExists_throwsException()" classname="service.repository.PatientRepositoryTest" time="0.045"/>
+  <testcase name="deletePatientTest()" classname="service.repository.PatientRepositoryTest" time="0.016"/>
+  <testcase name="getPatientByIdTest()" classname="service.repository.PatientRepositoryTest" time="0.016"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

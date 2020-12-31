@@ -32,6 +32,12 @@ public class Management {
         this.isActive = isActive;
     }
 
+    public Management(int patientId, int medicineId,String startDate, String endDate) {
+        this.patientId = patientId;
+        this.medicineId = medicineId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
     public Management() {
     }
 

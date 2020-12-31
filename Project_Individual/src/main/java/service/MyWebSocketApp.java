@@ -17,65 +17,71 @@ public class MyWebSocketApp extends WebSocketApplication {
 
 
     private static final Set<WebSocket> sockets = Collections.synchronizedSet(new HashSet<>());
-    private static final Map<Integer, Set<WebSocket>> sockets2 = Collections.synchronizedMap(new HashMap<>());
+    private static final Map<Integer, WebSocket> sockets2 = Collections.synchronizedMap(new HashMap<>());
     private Object uid;
     private WebSocket tempSocket;
-
     @Context
     Request request;
-
-
     @Override
     public void onConnect(WebSocket socket) {
-
-
         sockets.add(socket);
-
         System.out.println("onConnect");
+        tempSocket = socket;
         super.onConnect(socket);
-
         System.out.println("Scokets");
         System.out.println(sockets.size());
         System.out.println(socket.hashCode());
-
-//        request.getSession(true);
-//        request.setAttribute("id", 5);
-////        uid = request.getAttribute("email");
-//
-//        System.out.println("this is from websocket");
-//        System.out.println(request.getAttribute("id"));
-//        sockets2.put(uid, socket);
-
-    }
-    public void AddOnConnect(WebSocket socket, int id){
-        onConnect(socket);
-        sockets2.put(id, sockets);
     }
 
     @Override
     public void onMessage(WebSocket current, String text) {
         ManagementController persistenceController = new ManagementController();
 
-        try {
-            JSONObject json = new JSONObject((String) new JSONParser().parse(text));
 
-            Object patientId =  json.get("patientId");
-            Object content = json.get("content");
-            System.out.println(patientId);
-            synchronized (sockets) {
-                sockets.forEach(socket -> {
-//                    WebSocket receiver = (WebSocket) sockets2.get(patientId);
-                    if (socket.isConnected()) {
-                        socket.send(text);
+        String sId = text.substring(1, 3);
+        String sDisconnect = null;
+        if(text.length()>12) {
+            sDisconnect  = text.substring(1, 11);
+        }
+        if (sId.equals("id")) {
+            int id = Integer.parseInt(text.substring(3, text.length() - 1));
+            sockets2.put(id, tempSocket);
+
+        }
+        else if(sDisconnect.equals("disconnect")){
+            int id = Integer.parseInt(text.substring(11, text.length() - 1));
+            sockets.remove(id);
+        } else {
+
+            try {
+                JSONObject json = new JSONObject((String) new JSONParser().parse(text));
+
+                Object patientId = json.get("patientId");
+                Object content = json.get("content");
+//                Object medicineId = json.get("medicineId");
+//                Object startDate = json.get("startDate");
+//                Object endDate = json.get("endDate");
+//                Management medicineData = new Management((int)patientId, (int)medicineId, (String) startDate, (String) endDate);
+//                System.out.println(patientId);
+//                boolean isAdded = persistenceController.addMedicineToPatient(medicineData);
+//
+//                if(isAdded) {
+                    synchronized (sockets2) {
+                        if (sockets2.containsKey(patientId)) {
+                            WebSocket main = sockets2.get(patientId);
+                            main.isConnected();
+                            main.send(text);
+                        }
                     }
-                });
-            }
+                    persistenceController.setNotification((int) patientId, (String) content);
+//                }
 
-            persistenceController.setNotification((int)patientId, (String) content);
 
-        } catch (ParseException e) {
+
+        } catch(ParseException e){
             e.printStackTrace();
         }
+    }
 
 //        JSONObject jsonObject = new JSONObject(text);
 //        Object patientId =  jsonObject.get("patientId");
@@ -94,21 +100,6 @@ public class MyWebSocketApp extends WebSocketApplication {
 //            e.printStackTrace();
 //        }
     }
-    public void onMessage(WebSocket current, Management m) {
-        System.out.println("onMessage");
-
-        Set<WebSocket> receiver = sockets2.get("1");
-
-        synchronized (sockets) {
-            sockets.forEach(socket -> {
-                if (socket.isConnected()) {
-                    socket.send("You have a new medicine prescribed"+m.getMedicine().getMedName());
-
-                }
-            });
-        }
-    }
-
 
     @Override
     public void onMessage(WebSocket socket, byte[] bytes) {

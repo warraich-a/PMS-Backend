@@ -1,6 +1,7 @@
 package service.resources;
 
 import service.controller.ManagementController;
+import service.controller.UserController;
 import service.model.User;
 import service.repository.DatabaseException;
 
@@ -85,10 +86,10 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     }
 
     private boolean isValidUser(String email, String password){
-        ManagementController persistenceController = new ManagementController();
+        UserController userController = new UserController();
         User user = null;
         try {
-            user = persistenceController.getUsers(email, password);
+            user = userController.getUser(email, password);
         } catch (DatabaseException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -107,10 +108,10 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     }
     private boolean isUserAllowed(String email, String password, Set<String> rolesSet)
     {
-        ManagementController persistenceController = new ManagementController();
+        UserController userController = new UserController();
         User user = null;
         try {
-            user = persistenceController.getUsers(email, password);
+            user = userController.getUser(email, password);
         } catch (DatabaseException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {

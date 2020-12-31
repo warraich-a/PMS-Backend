@@ -5,9 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import service.model.Management;
-import service.model.Medicine;
-import service.model.Notification;
+import service.model.*;
 import service.repository.DatabaseException;
 import service.repository.ManagementRepository;
 
@@ -46,6 +44,7 @@ public class ManagementControllerTest {
         assertEquals(expectedList.size(), actualList.size());
         assertEquals(expectedList.get(1), actualList.get(1));
     }
+
 
 
     @Test

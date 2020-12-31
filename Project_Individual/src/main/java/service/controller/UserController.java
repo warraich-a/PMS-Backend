@@ -3,13 +3,17 @@ package service.controller;
 import service.model.User;
 import service.repository.DatabaseException;
 import service.repository.PatientRepository;
+import service.repository.UserRepository;
 
 import java.net.URISyntaxException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserController {
     PatientRepository patientRepository = new PatientRepository();
+    UserRepository userRepository = new UserRepository();
 
     public List<User> getPatients() {
 //        JDBCPatientRepository jdbcPatientRepository = new JDBCPatientRepository();
@@ -32,10 +36,22 @@ public class UserController {
         }
         return null;
     }
+    public User getUser(String email, String password) throws DatabaseException, SQLException, URISyntaxException {
+        String encryptedPassword = doHashing(password);
+        User u = userRepository.getUser(email, encryptedPassword);
+
+        if(u != null){
+            return  u;
+        }
+        return null;
+    }
+
     //add medicine
     public boolean addPatient(User user) {
 //        JDBCPatientRepository patientRepository = new JDBCPatientRepository();
         try {
+            String encryptedPassword = doHashing(user.getPassword());
+            user.setPassword(encryptedPassword);
             if(patientRepository.createPatient(user)) {
                 return true;
             }
@@ -52,6 +68,8 @@ public class UserController {
     public boolean updatePatient(User user) {
 //        JDBCPatientRepository patientRepository = new JDBCPatientRepository();
         try {
+            String encryptedPassword = doHashing(user.getPassword());
+            user.setPassword(encryptedPassword);
             if(patientRepository.updatePatient(user)) {
                 return true;
             }
@@ -79,6 +97,28 @@ public class UserController {
             e.printStackTrace();
             return false;
         }
+    }
+    public static String doHashing (String password) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+
+            messageDigest.update(password.getBytes());
+
+            byte[] resultByteArray = messageDigest.digest();
+
+            StringBuilder sb = new StringBuilder();
+
+            for (byte b : resultByteArray) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 
 }

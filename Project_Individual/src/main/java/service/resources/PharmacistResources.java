@@ -32,8 +32,8 @@ public class PharmacistResources {
     @GET //GET at http://localhost:XXXX/patients/
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPatientById(@QueryParam("email") String email, @QueryParam("password") String password) throws DatabaseException, SQLException, URISyntaxException {
-        ManagementController persistenceController = new ManagementController();
-        User user = persistenceController.getUsers(email, password);
+        UserController userController = new UserController();
+        User user = userController.getUser(email, password);
         if(user != null){
             return Response.ok(user).build();
         }
@@ -53,13 +53,17 @@ public class PharmacistResources {
         final String email = tokenizer.nextToken();
         final String password = tokenizer.nextToken();
 
-        ManagementController persistenceController = new ManagementController();
-        User user = persistenceController.getUsers(email, password);
+        UserController userController = new UserController();
+
+        User user = userController.getUser(email, password);
         if(user != null){
             request.getSession(true);
             request.setAttribute("email", email);
             System.out.println("session is below");
             System.out.println(request.getAttribute("email"));
+
+            String userId = Integer.toString(user.getId());
+
             return Response.ok(user).build();
         }
         else {

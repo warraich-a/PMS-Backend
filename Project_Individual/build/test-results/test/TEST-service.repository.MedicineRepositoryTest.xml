@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.repository.MedicineRepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-12-28T23:45:28" hostname="WARRAICHLAPTOP" time="0.056">
+<testsuite name="service.repository.MedicineRepositoryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-12-31T14:25:42" hostname="WARRAICHLAPTOP" time="0.181">
   <properties/>
-  <testcase name="deleteMedicineTest()" classname="service.repository.MedicineRepositoryTest" time="0.013"/>
-  <testcase name="updateMedicineTest()" classname="service.repository.MedicineRepositoryTest" time="0.01"/>
-  <testcase name="getMedicineByIdTest()" classname="service.repository.MedicineRepositoryTest" time="0.012"/>
-  <testcase name="getMedicinesTest()" classname="service.repository.MedicineRepositoryTest" time="0.01"/>
-  <testcase name="deleteMedicine_doesNotExist_returnsFalse()" classname="service.repository.MedicineRepositoryTest" time="0.009"/>
+  <testcase name="deleteMedicineTest()" classname="service.repository.MedicineRepositoryTest" time="0.071"/>
+  <testcase name="updateMedicineTest()" classname="service.repository.MedicineRepositoryTest" time="0.047"/>
+  <testcase name="getMedicineByIdTest()" classname="service.repository.MedicineRepositoryTest" time="0.019"/>
+  <testcase name="getMedicinesTest()" classname="service.repository.MedicineRepositoryTest" time="0.018"/>
+  <testcase name="deleteMedicine_doesNotExist_returnsFalse()" classname="service.repository.MedicineRepositoryTest" time="0.021"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
