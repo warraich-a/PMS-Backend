@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.controller.ManagementControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-12-31T14:25:41" hostname="WARRAICHLAPTOP" time="0.203">
+<testsuite name="service.controller.ManagementControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-01-01T21:19:44" hostname="WARRAICHLAPTOP" time="0.843">
   <properties/>
-  <testcase name="setNotificationTest()" classname="service.controller.ManagementControllerTest" time="0.127"/>
-  <testcase name="addMedicineToPatientTest()" classname="service.controller.ManagementControllerTest" time="0.01"/>
-  <testcase name="getMedicineByPatientIdTest()" classname="service.controller.ManagementControllerTest" time="0.012"/>
-  <testcase name="getNotificationTest()" classname="service.controller.ManagementControllerTest" time="0.015"/>
-  <testcase name="getManagementsTest()" classname="service.controller.ManagementControllerTest" time="0.013"/>
-  <testcase name="deleteMedicinePatientTest()" classname="service.controller.ManagementControllerTest" time="0.015"/>
+  <testcase name="setNotificationTest()" classname="service.controller.ManagementControllerTest" time="0.766"/>
+  <testcase name="addMedicineToPatientTest()" classname="service.controller.ManagementControllerTest" time="0.02"/>
+  <testcase name="getMedicineByPatientIdTest()" classname="service.controller.ManagementControllerTest" time="0.027"/>
+  <testcase name="getNotificationTest()" classname="service.controller.ManagementControllerTest" time="0.011"/>
+  <testcase name="getManagementsTest()" classname="service.controller.ManagementControllerTest" time="0.008"/>
+  <testcase name="deleteMedicinePatientTest()" classname="service.controller.ManagementControllerTest" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)

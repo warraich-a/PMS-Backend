@@ -139,7 +139,7 @@ public class PharmacistResources {
 
 
     // to update a patient
-    @RolesAllowed("Pharmacist")
+    @RolesAllowed({"Pharmacist", "Patient"})
     @PUT //PUT at http://localhost:XXXX/users/profile/experience/id
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/patient")
@@ -152,6 +152,7 @@ public class PharmacistResources {
             return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid id.").build();
         }
     }
+
 
     //Medicines
 

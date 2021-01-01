@@ -68,6 +68,7 @@ public class UserController {
     public boolean updatePatient(User user) {
 //        JDBCPatientRepository patientRepository = new JDBCPatientRepository();
         try {
+
             String encryptedPassword = doHashing(user.getPassword());
             user.setPassword(encryptedPassword);
             if(patientRepository.updatePatient(user)) {
@@ -81,6 +82,25 @@ public class UserController {
             e.printStackTrace();
             return false;
         }
+
+//        User u = getPatientById(user.getId());
+//        try {
+//            if(!u.getPassword().equals(user.getPassword())){
+//                String encryptedPassword = doHashing(user.getPassword());
+//                user.setPassword(encryptedPassword);
+//            }
+//            else {
+//                if (patientRepository.updatePatient(user)) {
+//                    User u1 = getPatientById(user.getId());
+//                    return u1;
+//                } else {
+//                    return null;
+//                }
+//            }
+//        } catch (DatabaseException | SQLException | URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
     }
     //delete medicine
     public boolean deletePatient(int patientId) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.model.NotificationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-12-31T14:25:42" hostname="WARRAICHLAPTOP" time="0.001">
+<testsuite name="service.model.NotificationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-01-01T21:19:45" hostname="WARRAICHLAPTOP" time="0.004">
   <properties/>
-  <testcase name="NullValueException()" classname="service.model.NotificationTest" time="0.0"/>
-  <testcase name="NotificationTest()" classname="service.model.NotificationTest" time="0.0"/>
+  <testcase name="NullValueException()" classname="service.model.NotificationTest" time="0.001"/>
+  <testcase name="NotificationTest()" classname="service.model.NotificationTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

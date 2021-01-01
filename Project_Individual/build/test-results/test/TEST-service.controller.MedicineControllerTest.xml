@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.controller.MedicineControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-12-31T14:25:42" hostname="WARRAICHLAPTOP" time="0.069">
+<testsuite name="service.controller.MedicineControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-01-01T21:19:45" hostname="WARRAICHLAPTOP" time="0.052">
   <properties/>
-  <testcase name="deleteMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.049"/>
-  <testcase name="updateMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.004"/>
-  <testcase name="getMedicineByIdTest()" classname="service.controller.MedicineControllerTest" time="0.004"/>
-  <testcase name="getMedicinesTest()" classname="service.controller.MedicineControllerTest" time="0.003"/>
-  <testcase name="addMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.003"/>
+  <testcase name="deleteMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.042"/>
+  <testcase name="updateMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.002"/>
+  <testcase name="getMedicineByIdTest()" classname="service.controller.MedicineControllerTest" time="0.002"/>
+  <testcase name="getMedicinesTest()" classname="service.controller.MedicineControllerTest" time="0.002"/>
+  <testcase name="addMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

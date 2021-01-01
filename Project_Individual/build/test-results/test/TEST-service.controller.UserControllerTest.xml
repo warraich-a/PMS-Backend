@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.controller.UserControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-12-31T14:25:42" hostname="WARRAICHLAPTOP" time="0.072">
+<testsuite name="service.controller.UserControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-01-01T21:19:45" hostname="WARRAICHLAPTOP" time="0.048">
   <properties/>
-  <testcase name="updatePatientTest()" classname="service.controller.UserControllerTest" time="0.056"/>
+  <testcase name="updatePatientTest()" classname="service.controller.UserControllerTest" time="0.036"/>
   <testcase name="GetPatientsTest()" classname="service.controller.UserControllerTest" time="0.002"/>
-  <testcase name="deletePatientTest()" classname="service.controller.UserControllerTest" time="0.003"/>
-  <testcase name="getPatientByIdTest()" classname="service.controller.UserControllerTest" time="0.003"/>
-  <testcase name="addPatientTest()" classname="service.controller.UserControllerTest" time="0.005"/>
+  <testcase name="deletePatientTest()" classname="service.controller.UserControllerTest" time="0.002"/>
+  <testcase name="getPatientByIdTest()" classname="service.controller.UserControllerTest" time="0.002"/>
+  <testcase name="addPatientTest()" classname="service.controller.UserControllerTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
