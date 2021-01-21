@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.StringTokenizer;
 
-@Path("pharmacist")
+@Path("pharmacist/")
 public class PharmacistResources {
     @Context
     private UriInfo uriInfo;
@@ -42,35 +42,61 @@ public class PharmacistResources {
         }
     }
 
+//
+//    @POST //POST at http://localhost:XXXX/users/
+//    @Path("login")
+//    @PermitAll
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response login(@Context Request request, String body) throws DatabaseException, SQLException, URISyntaxException {
+//
+//        final StringTokenizer tokenizer = new StringTokenizer(body, ":");
+//        final String email = tokenizer.nextToken();
+//        final String password = tokenizer.nextToken();
+//
+//        UserController userController = new UserController();
+//
+//        User user = userController.getUser(email, password);
+//        if(user != null){
+//            request.getSession(true);
+//            request.setAttribute("email", email);
+//            System.out.println("session is below");
+//            System.out.println(request.getAttribute("email"));
+//
+//            String userId = Integer.toString(user.getId());
+//
+//            return Response.ok(user).build();
+//        }
+//        else {
+//            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid username and password.").build();
+//        }
+//    }
+    @GET //POST at http://localhost:XXXX/users/
+    @Path("welcome/")
+    @PermitAll
+    @Produces("text/plain")
+    public Response Welcome() throws URISyntaxException, DatabaseException, SQLException {
+        return Response.status(Response.Status.OK).entity("Welcome!").build();
+    }
 
     @POST //POST at http://localhost:XXXX/users/
     @Path("login")
     @PermitAll
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response login(@Context Request request, String body) throws DatabaseException, SQLException, URISyntaxException {
+    @Produces("text/plain")
+    public Response LoginUser(String body) throws URISyntaxException, DatabaseException, SQLException {
+        UserController userController = new UserController();
 
         final StringTokenizer tokenizer = new StringTokenizer(body, ":");
         final String email = tokenizer.nextToken();
         final String password = tokenizer.nextToken();
-
-        UserController userController = new UserController();
-
         User user = userController.getUser(email, password);
-        if(user != null){
-            request.getSession(true);
-            request.setAttribute("email", email);
-            System.out.println("session is below");
-            System.out.println(request.getAttribute("email"));
-
+        if (user != null) {
             String userId = Integer.toString(user.getId());
-
-            return Response.ok(user).build();
-        }
-        else {
-            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid username and password.").build();
+            String token = userController.createJWT(userId, user.getFirstName(),user.getLastName(), -1);
+            return Response.ok(token).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid email.").build();
         }
     }
-
     //Patients
     //To get all the patients
     @RolesAllowed("Pharmacist")
@@ -152,7 +178,34 @@ public class PharmacistResources {
             return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid id.").build();
         }
     }
+    // to update a patient
+    @RolesAllowed({"Pharmacist", "Patient"})
+    @PUT //PUT at http://localhost:XXXX/users/profile/experience/id
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/updatePassword")
+    public Response updatePassword(User p) {
+        UserController userController = new UserController();
 
+        if (userController.updatePassword(p)) {
+            return Response.noContent().build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid id.").build();
+        }
+    }
+
+    // to update a patient
+    @RolesAllowed("Pharmacist")    @PUT //PUT at http://localhost:XXXX/users/profile/experience/id
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/updatePasswordByPharmacist")
+    public Response updatePasswordByPharmacist(User p) {
+        UserController userController = new UserController();
+
+        if (userController.updatePasswordByPharmacist(p)) {
+            return Response.noContent().build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Please provide a valid id.").build();
+        }
+    }
 
     //Medicines
 

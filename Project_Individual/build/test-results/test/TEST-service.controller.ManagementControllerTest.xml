@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.controller.ManagementControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-01-01T21:19:44" hostname="WARRAICHLAPTOP" time="0.843">
+<testsuite name="service.controller.ManagementControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-01-21T12:06:18" hostname="WARRAICHLAPTOP" time="0.89">
   <properties/>
-  <testcase name="setNotificationTest()" classname="service.controller.ManagementControllerTest" time="0.766"/>
-  <testcase name="addMedicineToPatientTest()" classname="service.controller.ManagementControllerTest" time="0.02"/>
-  <testcase name="getMedicineByPatientIdTest()" classname="service.controller.ManagementControllerTest" time="0.027"/>
-  <testcase name="getNotificationTest()" classname="service.controller.ManagementControllerTest" time="0.011"/>
-  <testcase name="getManagementsTest()" classname="service.controller.ManagementControllerTest" time="0.008"/>
-  <testcase name="deleteMedicinePatientTest()" classname="service.controller.ManagementControllerTest" time="0.007"/>
+  <testcase name="setNotificationTest()" classname="service.controller.ManagementControllerTest" time="0.825"/>
+  <testcase name="addMedicineToPatientTest()" classname="service.controller.ManagementControllerTest" time="0.023"/>
+  <testcase name="getMedicineByPatientIdTest()" classname="service.controller.ManagementControllerTest" time="0.013"/>
+  <testcase name="getNotificationTest()" classname="service.controller.ManagementControllerTest" time="0.009"/>
+  <testcase name="getManagementsTest()" classname="service.controller.ManagementControllerTest" time="0.007"/>
+  <testcase name="deleteMedicinePatientTest()" classname="service.controller.ManagementControllerTest" time="0.008"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at service.controller.ManagementController.<init>(ManagementController.java:20)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
@@ -249,7 +249,7 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at service.controller.ManagementController.<init>(ManagementController.java:20)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
@@ -488,7 +488,7 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at service.controller.ManagementController.<init>(ManagementController.java:20)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
@@ -727,7 +727,7 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at service.controller.ManagementController.<init>(ManagementController.java:20)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
@@ -966,7 +966,7 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at service.controller.ManagementController.<init>(ManagementController.java:20)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
@@ -1205,7 +1205,7 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at service.controller.ManagementController.<init>(ManagementController.java:20)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)

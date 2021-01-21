@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.repository.ManagementRepositoryTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-01-01T21:19:45" hostname="WARRAICHLAPTOP" time="0.235">
+<testsuite name="service.repository.ManagementRepositoryTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-01-21T12:06:19" hostname="WARRAICHLAPTOP" time="0.164">
   <properties/>
-  <testcase name="setNotificationTest()" classname="service.repository.ManagementRepositoryTest" time="0.13"/>
-  <testcase name="getNotificationTest()" classname="service.repository.ManagementRepositoryTest" time="0.034"/>
-  <testcase name="getManagementsTest()" classname="service.repository.ManagementRepositoryTest" time="0.033"/>
-  <testcase name="deleteMedicinePatientTest()" classname="service.repository.ManagementRepositoryTest" time="0.035"/>
+  <testcase name="setNotificationTest()" classname="service.repository.ManagementRepositoryTest" time="0.081"/>
+  <testcase name="getNotificationTest()" classname="service.repository.ManagementRepositoryTest" time="0.021"/>
+  <testcase name="getManagementsTest()" classname="service.repository.ManagementRepositoryTest" time="0.022"/>
+  <testcase name="deleteMedicinePatientTest()" classname="service.repository.ManagementRepositoryTest" time="0.037"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -245,7 +245,7 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -482,7 +482,7 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
@@ -719,7 +719,7 @@ SELECT * FROM medicine [42102-176]
 	at java.base/java.lang.Thread.run(Thread.java:832)
 service.repository.DatabaseException: Cannot read students from the database.
 	at service.repository.PatientRepository.getPatients(PatientRepository.java:60)
-	at service.controller.UserController.getPatients(UserController.java:22)
+	at service.controller.UserController.getPatients(UserController.java:32)
 	at service.repository.ManagementRepository.<init>(ManagementRepository.java:25)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
 	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)

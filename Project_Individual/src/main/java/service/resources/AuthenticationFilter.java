@@ -1,5 +1,6 @@
 package service.resources;
 
+import io.jsonwebtoken.Claims;
 import service.controller.ManagementController;
 import service.controller.UserController;
 import service.model.User;
@@ -19,10 +20,14 @@ import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.*;
 
+import static java.lang.Integer.parseInt;
+
 public class AuthenticationFilter implements ContainerRequestFilter {
 
     @Context
     private ResourceInfo resourceInfo;
+
+    UserController controller = new UserController();
 
     @Override public void filter(ContainerRequestContext requestContext) {
 
@@ -39,7 +44,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         }
 
         final String AUTHORIZATION_PROPERTY = "Authorization";
-        final String AUTHENTICATION_SCHEME = "Basic";
+//        final String AUTHENTICATION_SCHEME = "Basic";
         //Get request headers
         // with each request it will check the headers, if header exist it will go futhure otherwise will give an error
         final MultivaluedMap<String, String> headers = requestContext.getHeaders(); //Fetch authorization header
@@ -51,24 +56,35 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             requestContext.abortWith(response);
             return;
         } //Get encoded username and password
-        final String encodedCredentials = authorization.get(0).replaceFirst(AUTHENTICATION_SCHEME + " ", "");
-
-        //Decode username and password into one string
-        String credentials = new String(Base64.getDecoder().decode(encodedCredentials.getBytes()));
-        //Split username and password tokens in credentials
-        final StringTokenizer tokenizer = new StringTokenizer(credentials, ":");
-        final String email = tokenizer.nextToken();
-        final String password = tokenizer.nextToken();
+//        final String encodedCredentials = authorization.get(0).replaceFirst(AUTHENTICATION_SCHEME + " ", "");
+//
+//        //Decode username and password into one string
+//        String credentials = new String(Base64.getDecoder().decode(encodedCredentials.getBytes()));
+//        //Split username and password tokens in credentials
+//        final StringTokenizer tokenizer = new StringTokenizer(credentials, ":");
+//        final String email = tokenizer.nextToken();
+//        final String password = tokenizer.nextToken();
 
         //Check if username and password are valid (e.g., database) //If not valid: abort with UNAUTHORIED and stop
-
-        if (!isValidUser(email, password))
-        {
+        final String token = authorization.get(0);
+        Claims decoded = controller.decodeJWT(token);
+        // If i can decode it it is valid
+        String id = decoded.getId();
+        User u = controller.getUser(parseInt(id));
+        if(id.isEmpty()){
+            System.out.println("Invalid user");
             Response response = Response.status(Response.Status.UNAUTHORIZED).
-                    entity("Invalid username and/or password.").build();
+                    entity("Invalid email and/or password.").build();
             requestContext.abortWith(response);
             return;
         }
+//        if (!isValidUser(email, password))
+//        {
+//            Response response = Response.status(Response.Status.UNAUTHORIZED).
+//                    entity("Invalid username and/or password.").build();
+//            requestContext.abortWith(response);
+//            return;
+//        }
 
         if (method.isAnnotationPresent(RolesAllowed.class)) {
             // get allowed roles for this method
@@ -76,7 +92,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
              Set<String> rolesSet = new HashSet<String>(Arrays.asList(rolesAnnotation.value())); // roles getting form annotation
 
              /* isUserAllowed : implement this method to check if this user has any of the roles in the rolesSet if not isUserAllowed abort the requestContext with FORBIDDEN response*/
-            if (!isUserAllowed(email, password, rolesSet))
+            if (!isUserAllowed(u.getEmail(), rolesSet))
             {
                 Response response = Response.status(Response.Status.FORBIDDEN).build();
                 requestContext.abortWith(response);
@@ -106,12 +122,12 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         }
 
     }
-    private boolean isUserAllowed(String email, String password, Set<String> rolesSet)
+    private boolean isUserAllowed(String email, Set<String> rolesSet)
     {
         UserController userController = new UserController();
         User user = null;
         try {
-            user = userController.getUser(email, password);
+            user = userController.getUserByEmail(email);
         } catch (DatabaseException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {

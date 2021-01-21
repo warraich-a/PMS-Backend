@@ -20,6 +20,9 @@ public class User {
     private UserType userType;
     private WebSocket webSocket;
 
+
+    private String oldPassword;
+
     public String getDateOfBirth() {
         return dateOfBirth;
     }
@@ -190,4 +193,12 @@ public class User {
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
 }

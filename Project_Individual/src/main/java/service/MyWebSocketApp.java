@@ -36,15 +36,19 @@ public class MyWebSocketApp extends WebSocketApplication {
     @Override
     public void onMessage(WebSocket current, String text) {
         ManagementController persistenceController = new ManagementController();
-
+//        this is to get the id of every socket, for the first time when a user will connect using any socket,
+//        a message will be sent with user id to store in hashmap, below substring is being used to get the id of the user
 
         String sId = text.substring(1, 3);
         String sDisconnect = null;
         if(text.length()>12) {
             sDisconnect  = text.substring(1, 11);
         }
+        // if the id is found, then using that id a new object will be stored in the maps list,
         if (sId.equals("id")) {
+            // getting the id from the string
             int id = Integer.parseInt(text.substring(3, text.length() - 1));
+//            tempSocket is created in connect method for temporarily storing the new Socket, that will be used here along with id store in the map
             sockets2.put(id, tempSocket);
 
         }
@@ -54,51 +58,29 @@ public class MyWebSocketApp extends WebSocketApplication {
         } else {
 
             try {
+//                to convert the string to a json object,
                 JSONObject json = new JSONObject((String) new JSONParser().parse(text));
-
+//              to get the id and patient from the json object
                 Object patientId = json.get("patientId");
                 Object content = json.get("content");
-//                Object medicineId = json.get("medicineId");
-//                Object startDate = json.get("startDate");
-//                Object endDate = json.get("endDate");
-//                Management medicineData = new Management((int)patientId, (int)medicineId, (String) startDate, (String) endDate);
-//                System.out.println(patientId);
-//                boolean isAdded = persistenceController.addMedicineToPatient(medicineData);
-//
-//                if(isAdded) {
+//                looping through all the sockets
                     synchronized (sockets2) {
+//                        once the id matches any socket, a notification will be sent it to that specif socket, however if a socket is not in the list then the user wont recieve any
+//                        notification, because only logged in users are supposed to recieve the notification
                         if (sockets2.containsKey(patientId)) {
+//                            now the notification will be only sent to the user whose id is in the sockets2 list, and below is the patientId which we get from json object which a
+//                            pharmacist send
                             WebSocket main = sockets2.get(patientId);
                             main.isConnected();
                             main.send(text);
                         }
                     }
                     persistenceController.setNotification((int) patientId, (String) content);
-//                }
-
-
-
         } catch(ParseException e){
             e.printStackTrace();
         }
     }
 
-//        JSONObject jsonObject = new JSONObject(text);
-//        Object patientId =  jsonObject.get("patientId");
-//        System.out.println("onMessage");
-//        System.out.println("Patient Id below");
-//        System.out.println(patientId);
-////        JSONObject object = new JSONObject (text);
-//        JSONArray keys = jsonObject.names ();
-
-//        JSONParser parser = new JSONParser();
-//        try {
-////            JSONObject json = (JSONObject) parser.parse(text);
-//            json.keys();
-//            System.out.println(json.keys());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override

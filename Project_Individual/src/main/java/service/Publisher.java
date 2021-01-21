@@ -20,13 +20,15 @@ import java.util.logging.Logger;
  */
 class Publisher {
 
-    private static final URI BASE_URI = URI.create("http://localhost:9090/");
+//    private static final URI BASE_URI = URI.create("http://localhost:9090/");
+    private static final URI BASE_URI = URI.create("http://0.0.0.0:9090/");
+
 
 
     public static void main(String[] args) {
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
-        URI baseUri = UriBuilder.fromUri("http://localhost/").port(9988).build();
+//        URI baseUri = UriBuilder.fromUri("http://localhost/").port(9988).build();
         ResourceConfig resourceConfig = new ResourceConfig(PharmacistResources.class);
 
         resourceConfig.packages("service");
@@ -34,8 +36,8 @@ class Publisher {
         try {
             CustomApplicationConfig customApplicationConfig = new CustomApplicationConfig();
             // create and start a grizzly server
-            HttpServer server1 = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, customApplicationConfig, true);
-            HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, resourceConfig, false);
+//            HttpServer server1 = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, customApplicationConfig, true);
+            HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, customApplicationConfig, false);
 //            HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, resourceConfig,false);
 
             // setup static file handler so that we can also serve html pages.
@@ -62,10 +64,7 @@ class Publisher {
 
             System.out.println("Try the following GET operations in your internet browser: ");
             String[] getOperations = {
-                    BASE_URI.toURL() + "students/hello",
-                    BASE_URI.toURL() + "students/2",
-                    BASE_URI.toURL() + "students",
-                    BASE_URI.toURL() + "students?country=BG"
+                    BASE_URI.toURL() + "pharmacist/patients",
             };
             for (String getOperation : getOperations) {
                 System.out.println(getOperation);

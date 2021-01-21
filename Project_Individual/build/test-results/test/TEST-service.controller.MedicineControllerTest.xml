@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="service.controller.MedicineControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-01-01T21:19:45" hostname="WARRAICHLAPTOP" time="0.052">
+<testsuite name="service.controller.MedicineControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-01-21T12:06:19" hostname="WARRAICHLAPTOP" time="0.053">
   <properties/>
-  <testcase name="deleteMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.042"/>
+  <testcase name="deleteMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.041"/>
   <testcase name="updateMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.002"/>
   <testcase name="getMedicineByIdTest()" classname="service.controller.MedicineControllerTest" time="0.002"/>
   <testcase name="getMedicinesTest()" classname="service.controller.MedicineControllerTest" time="0.002"/>
-  <testcase name="addMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.001"/>
+  <testcase name="addMedicineTest()" classname="service.controller.MedicineControllerTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

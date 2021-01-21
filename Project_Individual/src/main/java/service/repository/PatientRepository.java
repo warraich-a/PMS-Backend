@@ -192,7 +192,7 @@ public class PatientRepository extends JDBCRepository {
     public boolean updatePatient(User user) throws DatabaseException, SQLException, URISyntaxException {
         Connection connection = jdbcRepository.getDatabaseConnection();
 
-        String sql = "update user set streetName=?, houseNr=?, city=?, zipcode=?, email=?, password=? where id=?";
+        String sql = "update user set streetName=?, houseNr=?, city=?, zipcode=?, email=? where id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         try {
 //            for (Patient p : getPatients()) {
@@ -202,8 +202,8 @@ public class PatientRepository extends JDBCRepository {
                     preparedStatement.setString(3, user.getCity());
                     preparedStatement.setString(4, user.getZipcode());
                     preparedStatement.setString(5, user.getEmail());
-                    preparedStatement.setString(6, user.getPassword());
-                    preparedStatement.setInt(7, user.getId());
+//                    preparedStatement.setString(6, user.getPassword());
+                    preparedStatement.setInt(6, user.getId());
                     int affected = preparedStatement.executeUpdate();
 
                     if(affected <= 0) {
@@ -256,5 +256,33 @@ public class PatientRepository extends JDBCRepository {
         }
 
     }
+    public boolean updatePassword(User user) throws DatabaseException, SQLException, URISyntaxException {
+        Connection connection = jdbcRepository.getDatabaseConnection();
 
+        String sql = "update user set password=? where id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try {
+
+            preparedStatement.setString(1, user.getPassword());
+            preparedStatement.setInt(2, user.getId());
+            int affected = preparedStatement.executeUpdate();
+
+            if(affected <= 0) {
+                return false;
+            }
+
+            connection.commit();
+            preparedStatement.close();
+            connection.close();
+            return true;
+
+
+        } catch (SQLException throwable) {
+            throw new DatabaseException("Cannot update the password.", throwable);
+        }
+        finally {
+            preparedStatement.close();
+            connection.close();
+        }
+    }
 }
